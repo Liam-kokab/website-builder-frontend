@@ -39,9 +39,25 @@ export const getPosts = async () => {
   return client.fetch(query);
 };
 
-export const getPost = async (slug) => {
+export const getPost = async (slug, langCode) => {
   const query = `*[_type == "post" && slug.current == "${slug}"] {
-    title,
+    "title": title.${langCode},
+  }[0]`;
+
+  return client.fetch(query);
+};
+
+export const getProducts = async () => {
+  const query = `*[_type == "product"]{
+    "slug": slug.current,
+  }`;
+
+  return client.fetch(query);
+};
+
+export const getProduct = async (slug, langCode) => {
+  const query = `*[_type == "product" && slug.current == "${slug}"] {
+    "title": title.${langCode},
   }[0]`;
 
   return client.fetch(query);

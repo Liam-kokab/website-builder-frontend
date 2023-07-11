@@ -8,17 +8,21 @@ const Menu = ({ menu, pageName }) => (
     {
       menu
         .filter(({ status, linkType }) => status === 'available' || linkType === 'external')
-        .map(({ title = '', shortTitle = '', externalLinkUrl = '', slug = '', linkType = '', useDocumentTitle = true, linkTitle = '', _key = '', openInNewTab = false }) => (
-          <Link
-            className={`${styles.menuButtons} ${pageName === slug ? styles.selected : ''}`}
-            key={_key}
-            href={getHref(linkType, slug, externalLinkUrl)}
-            title={useDocumentTitle || !linkTitle ? (shortTitle || title || linkTitle) : linkTitle}
-            target={openInNewTab ? '_blank' : ''}
-          >
-            {useDocumentTitle || !linkTitle ? (shortTitle || title || linkTitle) : linkTitle}
-          </Link>
-        ))
+        .map(({ title = '', shortTitle = '', externalLinkUrl = '', slug = '', linkType = '', useDocumentTitle = true, linkTitle = '', _key = '', openInNewTab = false }) => {
+          const href = getHref(linkType, slug, externalLinkUrl);
+
+          return (
+            <Link
+              className={`${styles.menuButtons} ${pageName === href ? styles.selected : ''}`}
+              key={_key}
+              href={href}
+              title={useDocumentTitle || !linkTitle ? (shortTitle || title || linkTitle) : linkTitle}
+              target={openInNewTab ? '_blank' : ''}
+            >
+              {useDocumentTitle || !linkTitle ? (shortTitle || title || linkTitle) : linkTitle}
+            </Link>
+          );
+        })
     }
   </nav>
 );
