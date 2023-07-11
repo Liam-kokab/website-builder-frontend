@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getSlugByRef } from '@/helpers/sanity';
 import getHref from '@/helpers/getHref';
 
-const CustomLink = async ({ children, mark }) => {
+const BlockContentLink = async ({ children, mark }) => {
   const { linkType, Reference: reference, externalLinkUrl, openInNewTab } = mark;
   const slug = reference ? await getSlugByRef(reference?._ref) : '';
 
@@ -17,7 +17,7 @@ const CustomLink = async ({ children, mark }) => {
   );
 };
 
-CustomLink.prototype = {
+BlockContentLink.prototype = {
   children: PropTypes.node.isRequired,
   mark: PropTypes.shape({
     linkType: PropTypes.string.isRequired,
@@ -28,4 +28,4 @@ CustomLink.prototype = {
   }).isRequired,
 };
 
-export default CustomLink;
+export default BlockContentLink;

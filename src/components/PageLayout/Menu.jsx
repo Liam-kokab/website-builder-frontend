@@ -1,36 +1,22 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useParams } from 'next/navigation';
-import styles from './Menu.module.scss';
+import getHref from '@/helpers/getHref';
+import styles from './pageLayout.module.scss';
 
-const getHref = (linkType, slug, externalLinkUrl) => {
-  switch (linkType) {
-    case 'internalPage':
-      return `/${slug}`;
-    case 'internalProduct':
-      return `/product/${slug}`;
-    case 'internalPost':
-      return `/post/${slug}`;
-    case 'external':
-      return externalLinkUrl;
-    default:
-      return '/';
-  }
-};
-
-const Menu = ({ menu }) => (
+const Menu = ({ menu, pageName }) => (
   <nav className={styles.menuContainer}>
-    <h2 className={styles.menuHeader}>Menu</h2>
     {
       menu
         .filter(({ status, linkType }) => status === 'available' || linkType === 'external')
-        .map(({ title = '', shortTitle = '', externalLinkUrl = '', slug = '', linkType = '', useDocumentTitle = true, linkTitle = '', _key = '' }) => (
+        .map(({ title = '', shortTitle = '', externalLinkUrl = '', slug = '', linkType = '', useDocumentTitle = true, linkTitle = '', _key = '', openInNewTab = false }) => (
           <Link
-            className={`${styles.menuButtons} ${title === '2' ? styles.selected : ''}`}
+            className={`${styles.menuButtons} ${pageName === slug ? styles.selected : ''}`}
             key={_key}
             href={getHref(linkType, slug, externalLinkUrl)}
+            title={useDocumentTitle || !linkTitle ? (shortTitle || title || linkTitle) : linkTitle}
+            target={openInNewTab ? '_blank' : ''}
           >
-            {useDocumentTitle || !linkTitle ? (shortTitle || title) : linkTitle}
+            {useDocumentTitle || !linkTitle ? (shortTitle || title || linkTitle) : linkTitle}
           </Link>
         ))
     }
@@ -39,6 +25,7 @@ const Menu = ({ menu }) => (
 
 Menu.defaultProps = {
   menu: [],
+  pageName: '',
 };
 
 Menu.propTypes = {
@@ -53,6 +40,7 @@ Menu.propTypes = {
     linkTitle: PropTypes.string,
     _key: PropTypes.string,
   })),
+  pageName: PropTypes.string,
 };
 
 export default Menu;

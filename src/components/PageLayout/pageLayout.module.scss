@@ -1,4 +1,87 @@
 .mainContainer {
+  min-height: 100vh;
   display: grid;
-  grid-template-columns: 15rem 1fr;
+  grid-template-rows: 5rem auto 5rem;
+  justify-content: center;
+  gap: calc(var(--margin) * 1);
+
+  .menuContainer {
+    min-width: var(--maxWidth);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: var(--margin);
+    border-radius: 0 0 var(--borderRadius) var(--borderRadius);
+    box-shadow: var(--boxShadow);
+    background-color: var(--backgroundColor2);
+
+    .menuButtons {
+      font-size: 150%;
+      letter-spacing: 1px;
+      padding: calc(var(--margin) / 3) var(--margin);
+
+      &:not(:last-child) {
+        border-right: var(--borderColor) solid 1px;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        position: relative;
+        height: 2px;
+        width: 0;
+        background-color: var(--accentColor);
+      }
+
+      &:not(.selected):hover {
+        &::after {
+          animation: show-up 0.3s ease-in-out forwards;
+
+          @keyframes show-up {
+            0% {
+              width: 0;
+              left: 50%
+            }
+            100% {
+              width: calc(100% + 6px);
+              left: -3px;
+            }
+          }
+        }
+      }
+
+      &.selected {
+        color: var(--accentColor);
+        cursor: default;
+
+        &::after {
+          background-color: var(--accentColor);
+          width: calc(100% + 6px);
+          left: -3px;
+        }
+      }
+    }
+  }
+
+  .mainContent {
+    max-width: 1200px;
+    width: 100%;
+    box-shadow: var(--boxShadow);
+    border-radius: var(--borderRadius);
+    overflow: hidden;
+    background-color: var(--backgroundColor2);
+  }
+
+  .mainFooter {
+    min-width: var(--maxWidth);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: var(--margin);
+    border-radius: var(--borderRadius) var(--borderRadius) 0 0;
+    box-shadow: var(--boxShadow);
+    background-color: var(--backgroundColor2);
+  }
 }

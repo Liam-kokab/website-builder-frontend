@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/extensions, import/no-unresolved
 import { getPost, getPosts } from '@/helpers/sanity';
 
 export const generateStaticParams = async () => {

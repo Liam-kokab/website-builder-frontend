@@ -1,28 +1,28 @@
+import { urlFor } from '@/helpers/sanity';
 import PropTypes from 'prop-types';
+import { imageType } from './types';
+import style from './images.module.scss';
 
-const MainImage = ({ image }) => (
-  <div className="main-image">
-    <img src={image} alt="main" />
-  </div>
-);
+const MainImage = ({ image, width, title }) => {
+  const url = urlFor(image).width(width).height(width / 4).url();
+
+  return (
+    <div className={style.mainImage}>
+      <img src={url} alt={image.alt} />
+      { title ? <h1>{title}</h1> : null }
+    </div>
+  );
+};
+
+MainImage.defaultProps = {
+  width: 1200,
+  title: '',
+};
 
 MainImage.propTypes = {
-  image: PropTypes.shape({
-    alt: PropTypes.string,
-    description: PropTypes.string,
-    url: PropTypes.string.isRequired,
-    palette: PropTypes.string.isRequired,
-    hotspot: PropTypes.shape({
-      height: PropTypes.number,
-      width: PropTypes.number,
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-    crp: PropTypes.shape({
-      bottom: PropTypes.number,
-      left: PropTypes.number,
-      right: PropTypes.number,
-      top: PropTypes.number,
-    }),
-  }).isRequired,
+  image: imageType.isRequired,
+  width: PropTypes.number,
+  title: PropTypes.string,
 };
+
+export default MainImage;

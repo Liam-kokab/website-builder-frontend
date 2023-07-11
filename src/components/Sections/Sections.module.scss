@@ -1,0 +1,19 @@
+.sections {
+  .section {
+    width: 100%;
+    display: grid;
+    grid-template-columns: var(--section-layout);
+    padding: var(--margin);
+
+    & > div {
+      &:not(:last-child) {
+        border-right: var(--backgroundColor1) solid 3px;
+        padding-right: var(--margin);
+      }
+
+      &:not(:first-child) {
+        padding-left: var(--margin);
+      }
+    }
+  }
+}
