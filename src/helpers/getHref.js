@@ -1,7 +1,7 @@
 const getHref = (linkType, slug, externalLinkUrl) => {
   switch (linkType) {
     case 'internalPage':
-      return `/${slug}`;
+      return slug === 'index' ? '/' : `/${slug}`;
     case 'internalProduct':
       return `/product/${slug}`;
     case 'internalPost':

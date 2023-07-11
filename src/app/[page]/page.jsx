@@ -8,7 +8,7 @@ export const generateStaticParams = async () => {
   return pages.filter(({ status }) => status === 'available').map(({ slug }) => ({ slug }));
 };
 
-const Post = async ({ params }) => {
+const Page = async ({ params }) => {
   const page = await getPage(params.page, 'no') || {};
   const { title, mainImage, sections } = page;
 
@@ -20,4 +20,4 @@ const Post = async ({ params }) => {
   );
 };
 
-export default Post;
+export default Page;
