@@ -1,5 +1,11 @@
 const MAX_ITEMS = 3;
 
+const size = `
+  width,
+  placement,
+  customWidth,
+`;
+
 export const image = (langCode) => `
   "title": title.${langCode},
   "alt": alt.${langCode},
@@ -17,17 +23,35 @@ const imageGroup = (langCode) => `
   images[] { ${image(langCode)} },
 `;
 
+export const video = (langCode) => `
+  "url": url.${langCode},
+  ${size}
+`;
+
+export const blog = (langCode) => `
+  count,
+  blogSectionType,
+  postGroup[]->{
+    "title": title.${langCode},
+    "shortTitle": shortTitle.${langCode},
+    "slug": slug.current,
+    status,
+    mainImage { ${image(langCode)} },
+  },
+`;
+
 const contentItems = (langCode) => `
   itemType,
   "blockContent": blockContentWithLang.${langCode},
   customImage,
   imageGroup { ${imageGroup(langCode)} },
-  blogSectionType,
-  video,
+  "blogPage": blogSectionType { ${blog(langCode)} },
+  video { ${video(langCode)} }
 `;
 
 export const sectionItems = (langCode) => `
   layout,
+  enabled,
   "contents": [
     ${new Array(MAX_ITEMS).fill(0).map((_, index) => `content${index + 1} { ${contentItems(langCode)} },`).join('\n')}
   ], 

@@ -5,7 +5,7 @@ import styles from './Sections.module.scss';
 const Sections = ({ sections }) => (
   <div className={styles.sections}>
     {
-      sections.filter(Boolean).map(({ layout, contents }, index) => (
+      sections.filter((section) => !!section?.enabled).map(({ layout, contents }, index) => (
         <div key={`section_${index}`}>
           <Section contents={contents} layout={layout} />
         </div>

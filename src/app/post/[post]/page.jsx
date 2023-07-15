@@ -1,5 +1,8 @@
 import { getPost, getPosts } from '@/helpers/sanity';
 import PageLayout from '@/components/PageLayout/PageLayout';
+import MainImage from '@/components/Images/MainImage';
+import styles from '@/app/[page]/page.module.scss';
+import Sections from '@/components/Sections/Sections';
 
 export const generateStaticParams = async () => {
   const posts = await getPosts();
@@ -7,14 +10,16 @@ export const generateStaticParams = async () => {
 };
 
 const Post = async ({ params }) => {
-  const { title } = await getPost(params.post, 'no') || {};
+  const { title, mainImage, sections } = await getPost(params.post, 'no') || {};
 
   return (
-    <PageLayout pageName={`/post/${params.post}`}>
-      <h1>
-        Post
-        {title}
-      </h1>
+    <PageLayout pageName={params.page === 'index' ? '/' : `/${params.page}`}>
+      {
+        mainImage?.asset?._ref
+          ? <MainImage image={mainImage} title={title} />
+          : <h1 className={styles.pageTitle}>{title}</h1>
+      }
+      <Sections sections={sections} />
     </PageLayout>
   );
 };

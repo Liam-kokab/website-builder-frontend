@@ -1,6 +1,8 @@
 import StyledBlockContent from '@/components/BlockContent/BlockContent';
 import ImageGroup from '@/components/Images/ImageGroup';
 import PropTypes from 'prop-types';
+import Video from '@/components/Video/Video';
+import Blog from '@/components/Blog/Blog';
 
 const Content = ({ content, partSize }) => {
   switch (content.itemType) {
@@ -12,9 +14,9 @@ const Content = ({ content, partSize }) => {
 
     case 'imageGroup': return <ImageGroup {...content} partSize={partSize} />;
 
-    case 'blogSectionType': return <div>Comming soon blogSectionType</div>;
+    case 'blogSectionType': return <Blog {...content} />;
 
-    case 'video': return <div>Comming soon video</div>;
+    case 'video': return <Video {...content} />;
 
     default: return <div>unknown</div>;
   }

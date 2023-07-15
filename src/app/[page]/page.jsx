@@ -2,6 +2,7 @@ import { getPage, getPages } from '@/helpers/sanity';
 import MainImage from '@/components/Images/MainImage';
 import Sections from '@/components/Sections/Sections';
 import PageLayout from '@/components/PageLayout/PageLayout';
+import styles from './page.module.scss';
 
 export const generateStaticParams = async () => {
   const pages = await getPages();
@@ -14,7 +15,11 @@ const Page = async ({ params }) => {
 
   return (
     <PageLayout pageName={params.page === 'index' ? '/' : `/${params.page}`}>
-      <MainImage image={mainImage} title={title} />
+      {
+        mainImage?.asset?._ref
+          ? <MainImage image={mainImage} title={title} />
+          : <h1 className={styles.pageTitle}>{title}</h1>
+      }
       <Sections sections={sections} />
     </PageLayout>
   );

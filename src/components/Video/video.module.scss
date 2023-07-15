@@ -1,0 +1,32 @@
+.contentVideo {
+  width: 100%;
+  display: flex;
+
+  &.left {
+    justify-content: left;
+  }
+  &.right {
+    justify-content: right;
+  }
+  &.center {
+    justify-content: center;
+  }
+
+  .video {
+    aspect-ratio: 16/10;
+    border: none;
+
+    &.half-width {
+      width: 50%;
+    }
+
+    &.full-width {
+      width: 100%;
+    }
+
+    &.two-third-width {
+      width: 66.6666666667%;
+    }
+  }
+
+}

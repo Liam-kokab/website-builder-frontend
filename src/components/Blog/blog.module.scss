@@ -1,0 +1,35 @@
+.blogPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .blogTable {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin);
+
+
+    .blogTableRow {
+      display: grid;
+      grid-template-columns: 10rem auto;
+      height: calc(10rem * 0.75);
+      align-items: center;
+      border-radius: var(--borderRadius);
+      // border: 1px solid var(--backgroundColor1);
+      // background-color: var(--backgroundColor1);
+      box-shadow: var(--boxShadow);
+      padding: calc(var(--margin) / 2);
+      gap: var(--margin);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--borderRadius);
+      }
+    }
+  }
+
+}

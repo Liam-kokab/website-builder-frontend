@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
-import { documentShearedItems } from '@/helpers/sanityTypes';
+import { documentShearedItems, image } from '@/helpers/sanityTypes';
 
 export const projectId = 'coxo779h';
 export const dataset = 'production';
@@ -15,22 +15,6 @@ export const client = createClient({
 const imageBuilder = imageUrlBuilder(client);
 export const urlFor = (source) => imageBuilder.image(source);
 
-export const getImageUrl = (imageObj = {}) => (imageObj.asset?.url
-  ? `${imageObj.asset.url}?w=1200`
-  : '');
-
-export const getPageContent = async (slug) => {
-  const query = `*[_type == "page" && slug.current == "${slug}"]{
-    title,
-    body,
-    mainImage {
-      asset->{url}      
-    }
-  }[0]`;
-
-  return client.fetch(query);
-};
-
 export const getPosts = async () => {
   const query = `*[_type == "post"]{
     "slug": slug.current,
@@ -41,7 +25,7 @@ export const getPosts = async () => {
 
 export const getPost = async (slug, langCode) => {
   const query = `*[_type == "post" && slug.current == "${slug}"] {
-    "title": title.${langCode},
+    ${documentShearedItems(langCode)}
   }[0]`;
 
   return client.fetch(query);
@@ -106,4 +90,16 @@ export const getSiteSettings = async () => {
 export const getSlugByRef = async (ref) => {
   if (!ref) return '';
   return client.fetch(`*[_id == "${ref}"][0].slug.current`);
+};
+
+export const getNewestPosts = async (langCode) => {
+  const query = `*[_type == "post" && status == 'available'] | order(_createdAt desc) {
+    "title": title.${langCode},
+    "shortTitle": shortTitle.${langCode},
+    "slug": slug.current,
+    mainImage { ${image(langCode)} },
+    status,
+  }`;
+
+  return client.fetch(query);
 };
