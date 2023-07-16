@@ -76,12 +76,17 @@
   .mainFooter {
     min-width: var(--maxWidth);
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     padding: var(--margin);
     border-radius: var(--borderRadius) var(--borderRadius) 0 0;
     box-shadow: var(--boxShadow);
     background-color: var(--backgroundColor2);
+
+    p {
+      font-size: 80%;
+      color: var(--textColor);
+      line-height: 2;
+    }
   }
 }
