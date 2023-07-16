@@ -11,10 +11,10 @@ const ImageGroup = ({ imageGroup, partSize }) => {
   return viewVariant
     ? (
       <div className={styles.imageGroup}>
-        {images.map(({ title, alt, description, ...image }) => (
-          <div key={`${title}-${alt}`} className={styles.eachImageContainer}>
+        {images.map(({ title, description, ...image }, index) => (
+          <div key={`${title}-${index}`} className={styles.eachImageContainer}>
             <img
-              alt={alt}
+              alt={title}
               key={image._key}
               src={urlFor(image).width(imageWidth).url()}
               className={circle ? styles.circle : null}
@@ -40,7 +40,6 @@ ImageGroup.propTypes = {
     viewVariant: PropTypes.string,
     circle: PropTypes.bool,
     images: PropTypes.arrayOf(PropTypes.shape({
-      alt: PropTypes.string,
       title: PropTypes.string,
       description: PropTypes.string,
     })),

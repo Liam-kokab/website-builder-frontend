@@ -8,7 +8,6 @@ const size = `
 
 export const image = (langCode) => `
   "title": title.${langCode},
-  "alt": alt.${langCode},
   crop,
   hotspot,
   "description": description.${langCode},

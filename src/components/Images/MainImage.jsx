@@ -8,7 +8,7 @@ const MainImage = ({ image, width, title }) => {
 
   return (
     <div className={style.mainImage}>
-      <img src={url} alt={image.alt} />
+      <img src={url} alt={image.title} />
       { title ? <h1>{title}</h1> : null }
     </div>
   );

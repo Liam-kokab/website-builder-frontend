@@ -18,7 +18,7 @@ const BlogTable = ({ count, posts }) => (
                   ? (
                     <img
                       src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
-                      alt={mainImage.alt}
+                      alt={mainImage.title}
                     />
                   )
                   : <div />
