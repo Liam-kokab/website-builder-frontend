@@ -42,7 +42,7 @@ export const blog = (langCode) => `
 const contentItems = (langCode) => `
   itemType,
   "blockContent": blockContentWithLang.${langCode},
-  customImage,
+  "image": customImage { ${image(langCode)} },
   imageGroup { ${imageGroup(langCode)} },
   "blogPage": blogSectionType { ${blog(langCode)} },
   video { ${video(langCode)} }
