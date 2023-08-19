@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from './video.module.scss';
 
-const Video = ({ video }) => {
+const Video = ({ video = {} }) => {
   if (!video?.url) return null;
   const { url, width, placement, customWidth } = video;
   const videoCode = url?.split('v=')?.[1];
@@ -20,10 +20,6 @@ const Video = ({ video }) => {
       />
     </div>
   );
-};
-
-Video.defaultProps = {
-  video: {},
 };
 
 Video.propTypes = {

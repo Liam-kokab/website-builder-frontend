@@ -42,6 +42,7 @@ export const getProducts = async () => {
 export const getProduct = async (slug, langCode) => {
   const query = `*[_type == "product" && slug.current == "${slug}"] {
     "title": title.${langCode},
+    "shortTitle": shortTitle.${langCode},
   }[0]`;
 
   return client.fetch(query);
@@ -64,9 +65,12 @@ export const getPage = async (slug, langCode) => {
   return client.fetch(query);
 };
 
-export const getSiteSettings = async () => {
+export const getSiteSettings = async (langCode) => {
   const query = `{
-    "general": *[_type == "generalSettings"][0],
+    "general": *[_type == "generalSettings"][0]{
+      "tags": tags[].${langCode},
+      "title": pageNamePrefix.${langCode},  
+    },
     "color": *[_type == "colorSettings"][0],
     "footer": *[_type == "footerSettings"][0],
     "categories": *[_type == "categoriesSettings"][0],
@@ -75,9 +79,9 @@ export const getSiteSettings = async () => {
       useDocumentTitle,
       openInNewTab,
       externalLinkUrl,
-      "linkTitle": linkTitle.no,
-      "title": Reference->title.no,
-      "shortTitle": Reference->shortTitle.no,
+      "linkTitle": linkTitle.${langCode},
+      "title": Reference->title.${langCode},
+      "shortTitle": Reference->shortTitle.${langCode},
       "slug": Reference->slug.current,
       "status": Reference->status,
       _key,
@@ -102,4 +106,17 @@ export const getNewestPosts = async (langCode) => {
   }`;
 
   return client.fetch(query);
+};
+
+export const getDefaultLangCode = async () => {
+  const query = '*[_type == "languageSettings"][0].defaultLanguage';
+  return client.fetch(query);
+};
+
+export const getAvailableLangCodes = async () => {
+  const query = '*[_type == "languageSettings"][0]';
+  const res = await client.fetch(query);
+  return Object.keys(res)
+    .filter((key) => key.startsWith('enable_') && res[key])
+    .map((key) => key.replace('enable_', ''));
 };

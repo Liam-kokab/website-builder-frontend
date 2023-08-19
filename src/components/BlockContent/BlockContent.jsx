@@ -10,7 +10,7 @@ const serializers = {
   },
 };
 
-const StyledBlockContent = async ({ blockContent }) => (
+const StyledBlockContent = async ({ blockContent = [] }) => (
   <div className={styles.blockContent}>
     <BlockContent
       serializers={serializers}
@@ -18,10 +18,6 @@ const StyledBlockContent = async ({ blockContent }) => (
     />
   </div>
 );
-
-StyledBlockContent.defaultProps = {
-  blockContent: [],
-};
 
 StyledBlockContent.propTypes = {
   blockContent: PropTypes.arrayOf(PropTypes.shape({

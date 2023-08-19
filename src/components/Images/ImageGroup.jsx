@@ -4,7 +4,7 @@ import { maxWith } from '@/settings';
 import { getNumberFromString } from '@/helpers/string';
 import styles from './images.module.scss';
 
-const ImageGroup = ({ imageGroup, partSize }) => {
+const ImageGroup = ({ imageGroup = {}, partSize }) => {
   const { images = [], title: groupTitle, description: groupDescription, viewVariant, circle } = imageGroup;
   const imageWidth = (maxWith / 12) * getNumberFromString(partSize);
 
@@ -26,10 +26,6 @@ const ImageGroup = ({ imageGroup, partSize }) => {
       </div>
     )
     : (<div>Coming soon!</div>);
-};
-
-ImageGroup.defaultProps = {
-  imageGroup: {},
 };
 
 ImageGroup.propTypes = {

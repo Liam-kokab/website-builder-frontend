@@ -85,6 +85,7 @@
     "default-param-last": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
+    "react/require-default-props": ["error", { "functions": "defaultArguments" }],
     "@next/next/no-img-element": "off",
     "react/no-array-index-key": "off"
   }

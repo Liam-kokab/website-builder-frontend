@@ -5,7 +5,7 @@ import Video from '@/components/Video/Video';
 import Blog from '@/components/Blog/Blog';
 import CustomImage from '@/components/Images/CustomImage';
 
-const Content = ({ content, partSize }) => {
+const Content = ({ content = {}, partSize, lang, isDefaultLang }) => {
   switch (content.itemType) {
     case 'blockContentWithLang': return <StyledBlockContent {...content} partSize={partSize} />;
 
@@ -15,7 +15,7 @@ const Content = ({ content, partSize }) => {
 
     case 'imageGroup': return <ImageGroup {...content} partSize={partSize} />;
 
-    case 'blogSectionType': return <Blog {...content} />;
+    case 'blogSectionType': return <Blog {...content} lang={lang} isDefaultLang={isDefaultLang} />;
 
     case 'video': return <Video {...content} />;
 
@@ -23,15 +23,13 @@ const Content = ({ content, partSize }) => {
   }
 };
 
-Content.defaultProps = {
-  content: {},
-};
-
 Content.propTypes = {
   content: PropTypes.shape({
     itemType: PropTypes.string.isRequired,
   }),
   partSize: PropTypes.string.isRequired,
+  lang: PropTypes.string.isRequired,
+  isDefaultLang: PropTypes.bool.isRequired,
 };
 
 export default Content;

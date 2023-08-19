@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { getSlugByRef } from '@/helpers/sanity';
-import getHref from '@/helpers/getHref';
+import { getHref } from '@/helpers/getHref';
 
 const BlockContentLink = async ({ children, mark }) => {
   const { linkType, Reference: reference, externalLinkUrl, openInNewTab } = mark;

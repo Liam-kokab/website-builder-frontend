@@ -58,6 +58,7 @@ export const sectionItems = (langCode) => `
 
 export const documentShearedItems = (langCode) => `
   "title": title.${langCode},
+  "shortTitle": shortTitle.${langCode},
   mainImage { ${image(langCode)} },
   status,
   "slug": slug.current,

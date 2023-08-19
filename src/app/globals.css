@@ -1,5 +1,4 @@
 :root {
-  --max-width: 1100px;
   --margin: 1.5rem;
 
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -21,7 +20,19 @@
 
   --maxWidth: 1200px;
   --borderRadius: 12px;
+  --elemetBorderRadius: 5px;
   --boxShadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+  /* screen sizes */
+    --max-width: 1200px;
+    --mobile-max-width: 768px;
+
+
+  /* Sizes */
+    --headerSize: 5rem;
+    --footerSize: 5rem;
+    --mainElementsWidth: calc(100dvw - var(--margin) * 2);
+
 }
 
 * {

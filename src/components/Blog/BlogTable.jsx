@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { urlFor } from '@/helpers/sanity';
+import { getHref } from '@/helpers/getHref';
 import styles from './blog.module.scss';
 
 const imageWidth = 250;
 
-const BlogTable = ({ count, posts }) => (
+const BlogTable = ({ count = 100, posts = [], lang, isDefaultLang }) => (
   <div className={styles.blogTable}>
     {
       posts
         .filter(({ status }) => status === 'available')
         .map(({ title, shortTitle, slug, mainImage }, index) => (
-          <Link href={`/post/${slug}`} key={`${slug}-${index}`}>
+          <Link href={getHref('internalPost', slug, isDefaultLang, lang)} key={`${slug}-${index}`}>
             <div className={styles.blogTableRow}>
               {
                 mainImage?.asset
@@ -31,11 +32,6 @@ const BlogTable = ({ count, posts }) => (
   </div>
 );
 
-BlogTable.defaultProps = {
-  count: 100,
-  posts: [],
-};
-
 BlogTable.propTypes = {
   count: PropTypes.number,
   posts: PropTypes.arrayOf(PropTypes.shape({
@@ -47,6 +43,8 @@ BlogTable.propTypes = {
       asset: PropTypes.shape({}),
     }),
   })),
+  lang: PropTypes.string.isRequired,
+  isDefaultLang: PropTypes.bool.isRequired,
 };
 
 export default BlogTable;

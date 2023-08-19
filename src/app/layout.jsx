@@ -26,7 +26,7 @@ const RootLayout = async ({ children }) => {
   };
 
   return (
-    <html lang="no" style={sanityStyles}>
+    <html lang="no" style={sanityStyles} id="parent-of-all">
       <body>
         {children}
       </body>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import styles from './pageLayout.module.scss';
 
-const Footer = ({ footer }) => {
+const Footer = ({ footer = {} }) => {
   const { companyName, companyAddress1, companyAddress2, companyPhone } = footer;
 
   return (
@@ -16,10 +16,6 @@ const Footer = ({ footer }) => {
       </div>
     </footer>
   );
-};
-
-Footer.defaultProps = {
-  footer: {},
 };
 
 Footer.propTypes = {

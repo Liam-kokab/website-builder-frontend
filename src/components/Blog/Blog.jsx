@@ -3,19 +3,15 @@ import { getNewestPosts } from '@/helpers/sanity';
 import BlogTable from '@/components/Blog/BlogTable';
 import styles from './blog.module.scss';
 
-const Blog = async ({ blogPage }) => {
+const Blog = async ({ blogPage = {}, lang, isDefaultLang }) => {
   const { count = 100, blogSectionType = 'newest', postGroup = [] } = blogPage;
   const posts = blogSectionType === 'predefined' ? postGroup : await getNewestPosts('no');
 
   return (
     <div className={styles.blogPage}>
-      <BlogTable posts={posts} count={count} />
+      <BlogTable posts={posts} count={count} lang={lang} isDefaultLang={isDefaultLang} />
     </div>
   );
-};
-
-Blog.defaultProps = {
-  blogPage: {},
 };
 
 Blog.propTypes = {
@@ -31,6 +27,8 @@ Blog.propTypes = {
         asset: PropTypes.shape({}),
       }),
     })),
+    lang: PropTypes.string.isRequired,
+    isDefaultLang: PropTypes.bool.isRequired,
   }),
 };
 

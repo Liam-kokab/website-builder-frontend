@@ -1,11 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '@/components/Images/images.module.scss';
 import { urlFor } from '@/helpers/sanity';
 import { maxWith } from '@/settings';
 import { getNumberFromString } from '@/helpers/string';
 
-const CustomImage = ({ image, partSize }) => {
+const CustomImage = ({ image = null, partSize = '12fr' }) => {
   const { title = '', description = '', circle = false } = image;
   const imageWidth = (maxWith / 12) * getNumberFromString(partSize);
 
@@ -22,11 +21,6 @@ const CustomImage = ({ image, partSize }) => {
       </div>
     </div>
   );
-};
-
-CustomImage.defaultProps = {
-  image: null,
-  partSize: '12fr',
 };
 
 CustomImage.propTypes = {
