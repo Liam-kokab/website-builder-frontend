@@ -4,7 +4,7 @@ import { getHref } from '@/helpers/getHref';
 
 export const generateStaticParams = async () => {
   const posts = await getProducts();
-  return posts.map(({ slug }) => ({ product: slug }));
+  return posts.filter(({ status }) => status === 'available').map(({ slug }) => ({ product: slug }));
 };
 
 const Product = async ({ params }) => {

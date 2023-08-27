@@ -4,7 +4,7 @@ import Post from '@/app/b/[post]/page';
 
 export const generateStaticParams = async () => {
   const [
-    pages,
+    posts,
     availableLangCodes,
     defaultLang,
   ] = await Promise.all([
@@ -14,8 +14,8 @@ export const generateStaticParams = async () => {
   ]);
 
   return availableLangCodes
-    .filter((lang) => lang !== undefined)
-    .flatMap((lang) => pages.filter(({ status }) => status === 'available').map(({ slug }) => ({ post: slug, lang })));
+    .filter((lang) => lang !== defaultLang)
+    .flatMap((lang) => posts.filter(({ status }) => status === 'available').map(({ slug }) => ({ post: slug, lang })));
 };
 
 const PostWithLang = ({ params = {} }) => {

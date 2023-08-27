@@ -15,9 +15,14 @@ export const client = createClient({
 const imageBuilder = imageUrlBuilder(client);
 export const urlFor = (source) => imageBuilder.image(source);
 
+/**
+ * Get all posts
+ * @return {Promise<[{ slug: string, status: ('available'|'disabled'|'hidden') }]>}
+ */
 export const getPosts = async () => {
   const query = `*[_type == "post"]{
     "slug": slug.current,
+    status,
   }`;
 
   return client.fetch(query);
@@ -31,9 +36,14 @@ export const getPost = async (slug, langCode) => {
   return client.fetch(query);
 };
 
+/**
+ * Get all products
+ * @return {Promise<[{ slug: string, status: ('available'|'disabled'|'hidden') }]>}
+ */
 export const getProducts = async () => {
   const query = `*[_type == "product"]{
     "slug": slug.current,
+    status,
   }`;
 
   return client.fetch(query);
@@ -48,6 +58,10 @@ export const getProduct = async (slug, langCode) => {
   return client.fetch(query);
 };
 
+/**
+ * Get all pages
+ * @return {Promise<[{ slug: string, status: ('available'|'disabled'|'hidden') }]>}
+ */
 export const getPages = async () => {
   const query = `*[_type == "page"]{
       "slug": slug.current,
