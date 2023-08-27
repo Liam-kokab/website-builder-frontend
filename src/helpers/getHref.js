@@ -44,7 +44,8 @@ export const getSlugFromHref = (href = '') => {
   const pageType = getPageTypeFromHref(href);
   if (pageType === 'index') return 'index';
   if (pageType === 'external') return '';
-  return href.split('/').at(-1);
+  const indexOfSlug = href.endsWith('/') ? -2 : -1;
+  return href.split('/').at(indexOfSlug) || '';
 };
 
 /**
