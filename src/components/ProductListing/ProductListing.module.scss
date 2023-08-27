@@ -1,0 +1,95 @@
+.productListingPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .productTable {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin);
+
+    .productTableRow {
+      display: grid;
+      grid-template-columns: 10rem auto 10rem;
+      height: calc(10rem * 0.75);
+      align-items: center;
+      border-radius: var(--borderRadius);
+      // border: 1px solid var(--backgroundColor1);
+      // background-color: var(--backgroundColor1);
+      box-shadow: var(--boxShadow);
+      padding: calc(var(--margin) / 2);
+      gap: var(--margin);
+
+      .imageContainer, img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--borderRadius);
+      }
+
+      .priceBuy {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding: calc(var(--margin) / 2);
+        height: 100%;
+
+        h3, h4 {
+          text-align: end;
+        }
+
+        .buy {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-direction: row;
+          button, .count {
+            background-color: var(--accentColor);
+            border: none;
+            padding: 0 calc(var(--margin) / 2);
+            height: 1.5rem;
+            color: var(--backgroundColor1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              cursor: pointer;
+            }
+
+            &:first-child {
+              border-radius: var(--borderRadius) 0 0 var(--borderRadius);
+              border-right: 1px solid var(--backgroundColor1);
+            }
+
+            &:last-child {
+              border-radius: 0 var(--borderRadius) var(--borderRadius) 0;
+              border-left: 1px solid var(--backgroundColor1);
+            }
+          }
+        }
+      }
+
+      .shownPrice {
+        display: block;
+      }
+
+      .hiddenPrice {
+        display: none;
+      }
+
+      &:hover {
+        .shownPrice {
+          display: none;
+        }
+
+        .hiddenPrice {
+          display: block;
+        }
+      }
+    }
+  }
+}

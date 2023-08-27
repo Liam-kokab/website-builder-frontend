@@ -12,20 +12,22 @@ const BlogTable = ({ count = 100, posts = [], lang, isDefaultLang }) => (
       posts
         .filter(({ status }) => status === 'available')
         .map(({ title, shortTitle, slug, mainImage }, index) => (
-          <Link href={getHref('internalPost', slug, isDefaultLang, lang)} key={`${slug}-${index}`}>
-            <div className={styles.blogTableRow}>
-              {
-                mainImage?.asset
-                  ? (
-                    <img
-                      src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
-                      alt={mainImage.title}
-                    />
-                  )
-                  : <div />
-              }
-              <h2>{shortTitle || title}</h2>
-            </div>
+          <Link
+            href={getHref('internalPost', slug, isDefaultLang, lang)}
+            key={`${slug}-${index}`}
+            className={styles.blogTableRow}
+          >
+            {
+              mainImage?.asset
+                ? (
+                  <img
+                    src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
+                    alt={mainImage.title}
+                  />
+                )
+                : <div />
+            }
+            <h2>{shortTitle || title}</h2>
           </Link>
         ))
     }

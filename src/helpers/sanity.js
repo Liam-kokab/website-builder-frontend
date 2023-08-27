@@ -2,8 +2,8 @@ import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { documentShearedItems, image } from '@/helpers/sanityTypes';
 
-export const projectId = process.env.SANITY_PROJECT_ID;
-export const dataset = process.env.SANITY_DATASET;
+export const projectId = process.env.SANITY_PROJECT_ID || 'coxo779h';
+export const dataset = process.env.SANITY_DATASET || 'production';
 
 export const client = createClient({
   projectId,
@@ -67,6 +67,7 @@ export const getPage = async (slug, langCode) => {
 
 export const getSiteSettings = async (langCode) => {
   const query = `{
+    "currency": *[_type == "currencySettings"][0],
     "general": *[_type == "generalSettings"][0]{
       "tags": tags[].${langCode},
       "title": pageNamePrefix.${langCode},  

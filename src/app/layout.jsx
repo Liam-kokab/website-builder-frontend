@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import './globals.css';
 import { getSiteSettings } from '@/helpers/sanity';
+import Providers from '@/helpers/Providers/Providers';
+import './globals.css';
 
 export const metadata = {
   title: 'Mazi',
@@ -28,7 +29,9 @@ const RootLayout = async ({ children }) => {
   return (
     <html lang="no" style={sanityStyles} id="parent-of-all">
       <body>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

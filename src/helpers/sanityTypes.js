@@ -39,12 +39,27 @@ export const blog = (langCode) => `
   },
 `;
 
+export const productListing = (langCode) => `
+  count,
+  productGroup[]->{
+    "title": title.${langCode},
+    "shortTitle": shortTitle.${langCode},
+    "slug": slug.current,
+    "description": description.${langCode},
+    price,
+    stock,
+    status,
+    mainImage { ${image(langCode)} },
+  },
+`;
+
 const contentItems = (langCode) => `
   itemType,
   "blockContent": blockContentWithLang.${langCode},
   "image": customImage { ${image(langCode)} },
   imageGroup { ${imageGroup(langCode)} },
   "blogPage": blogSectionType { ${blog(langCode)} },
+  "productListing": productListing { ${productListing(langCode)} },
   video { ${video(langCode)} }
 `;
 

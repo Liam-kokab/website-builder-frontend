@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Video from '@/components/Video/Video';
 import Blog from '@/components/Blog/Blog';
 import CustomImage from '@/components/Images/CustomImage';
+import ProductListing from '@/components/ProductListing/ProductListing';
 
 const Content = ({ content = {}, partSize, lang, isDefaultLang }) => {
   switch (content.itemType) {
@@ -18,6 +19,8 @@ const Content = ({ content = {}, partSize, lang, isDefaultLang }) => {
     case 'blogSectionType': return <Blog {...content} lang={lang} isDefaultLang={isDefaultLang} />;
 
     case 'video': return <Video {...content} />;
+
+    case 'productListing': return <ProductListing {...content} lang={lang} isDefaultLang={isDefaultLang} />;
 
     default: return <div>unknown</div>;
   }

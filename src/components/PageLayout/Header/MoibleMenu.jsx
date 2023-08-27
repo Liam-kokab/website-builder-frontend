@@ -35,7 +35,12 @@ const MobileMenu = ({ menu = [], pageName = '', href = '', isDefaultLang = true,
               <nav className={styles.mobileMenu}>
                 <MenuItems menu={menu} pageName={pageName} isDefaultLang={isDefaultLang} langCode={langCode} href={href} />
               </nav>
-              <LanguageSwitcher defaultLanguage={defaultLanguage} languages={languages} currentLang={langCode} className={styles.mobileLanguageSelect} />
+              <LanguageSwitcher
+                defaultLanguage={defaultLanguage}
+                languages={languages}
+                currentLang={langCode}
+                className={styles.mobileLanguageSelect}
+              />
             </>
           ) : null
       }
