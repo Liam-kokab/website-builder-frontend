@@ -14,7 +14,7 @@ export const generateStaticParams = async () => {
   ]);
 
   return availableLangCodes
-    .filter((lang) => lang !== defaultLang)
+    .filter((lang) => lang !== undefined)
     .flatMap((lang) => pages.filter(({ status }) => status === 'available').map(({ slug }) => ({ product: slug, lang })));
 };
 
