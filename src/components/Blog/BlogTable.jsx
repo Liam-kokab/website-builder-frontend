@@ -5,6 +5,7 @@ import { getHref } from '@/helpers/getHref';
 import styles from './blog.module.scss';
 
 const imageWidth = 250;
+const mobileImageWidth = 750;
 
 const BlogTable = ({ count = 100, posts = [], lang, isDefaultLang }) => (
   <div className={styles.blogTable}>
@@ -20,12 +21,20 @@ const BlogTable = ({ count = 100, posts = [], lang, isDefaultLang }) => (
             {
               mainImage?.asset
                 ? (
-                  <img
-                    src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
-                    alt={mainImage.title}
-                  />
+                  <>
+                    <img
+                      className={`${styles.blogTableImage}`}
+                      src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
+                      alt={mainImage.title}
+                    />
+                    <img
+                      className={`${styles.blogTableImage} ${styles.mobileImage}`}
+                      src={urlFor(mainImage).width(mobileImageWidth).height(Math.round((mobileImageWidth * 9) / 16)).url()}
+                      alt={mainImage.title}
+                    />
+                  </>
                 )
-                : <div />
+                : <div className={`${styles.blogTableImage} ${styles.noImage}`} />
             }
             <h2>{shortTitle || title}</h2>
           </Link>

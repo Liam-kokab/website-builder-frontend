@@ -6,19 +6,18 @@ import { getNumberFromString } from '@/helpers/string';
 
 const CustomImage = ({ image = null, partSize = '12fr' }) => {
   const { title = '', description = '', circle = false } = image;
-  const imageWidth = (maxWith / 12) * getNumberFromString(partSize);
+  const imageWidth = (maxWith / 12) * Math.max(getNumberFromString(partSize), 4);
+  const imageHeight = imageWidth * 0.75;
 
   return (
-    <div className={styles.imageGroup}>
-      <div className={styles.eachImageContainer}>
-        <img
-          alt={title}
-          src={urlFor(image).width(imageWidth).url()}
-          className={circle ? styles.circle : null}
-        />
-        {title ? <h3>{title}</h3> : null}
-        {description ? <p>{description}</p> : null}
-      </div>
+    <div className={styles.customImageContainer}>
+      <img
+        alt={title}
+        src={urlFor(image).width(imageWidth).height(imageHeight).url()}
+        className={circle ? styles.circle : null}
+      />
+      <h3>{title || ''}</h3>
+      <p>{description || ''}</p>
     </div>
   );
 };
@@ -28,7 +27,6 @@ CustomImage.propTypes = {
   image: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    viewVariant: PropTypes.string,
     circle: PropTypes.bool,
   }),
 };

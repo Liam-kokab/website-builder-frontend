@@ -11,13 +11,13 @@ const Price = ({ price = {}, currencySettings, lang }) => {
   const formattedPrice = new Intl.NumberFormat(lang, { style: 'currency', currency: defaultCurrency }).format(price[defaultCurrency]);
 
   return (
-    <div>
-      <h3 className={styles.shownPrice}>{formattedPrice}</h3>
-      <span className={styles.hiddenPrice}>
+    <div className={styles.price}>
+      <h3>{formattedPrice}</h3>
+      <span className={styles.currency}>
         {
-          currencies.map((currency = '') => {
-            const currentFormattedPrice = new Intl.NumberFormat(lang, { style: 'currency', currency }).format(price[currency]);
-            return (<h4 key={currency}>{currentFormattedPrice}</h4>);
+          currencies.filter((currency) => currency !== defaultCurrency).map((currency = '') => {
+            const currentFormattedPrice = new Intl.NumberFormat(lang, { style: 'currency', currency }).format(price[currency] || 50);
+            return (<span key={currency}>{currentFormattedPrice}</span>);
           })
         }
       </span>

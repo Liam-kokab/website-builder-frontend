@@ -129,10 +129,8 @@
       height: 3.8rem;
       cursor: pointer;
       margin: auto;
-      background-color: transparent;
       justify-content: space-around;
       align-items: center;
-      border: none;
 
       span, &::before, &::after {
         width: calc(100% - 8px);

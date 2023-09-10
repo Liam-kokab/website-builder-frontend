@@ -30,15 +30,13 @@ const ProductTable = ({ count = 100, products = [], lang, isDefaultLang, currenc
                 )
                 : <div />
             }
-            <Link href={getHref('internalProduct', slug, isDefaultLang, lang)}>
+            <Link className={styles.titleDescription} href={getHref('internalProduct', slug, isDefaultLang, lang)}>
               <h2>{shortTitle || title}</h2>
               <p>{description ?? ''}</p>
             </Link>
 
-            <span className={styles.priceBuy}>
-              <Price price={price} currencySettings={currencySettings} lang={lang} />
-              <Buy productId={slug} />
-            </span>
+            <Price price={price} currencySettings={currencySettings} lang={lang} />
+            <Buy productId={slug} />
           </span>
         ))
     }

@@ -5,8 +5,8 @@ import styles from './Sections.module.scss';
 const Sections = ({ sections = [], lang, isDefaultLang }) => (
   <div className={styles.sections}>
     {
-      sections.filter((section) => !!section?.enabled).map(({ layout, contents }, index) => (
-        <div key={`section_${index}`}>
+      (sections || []).filter((section) => !!section?.enabled).map(({ layout, contents }, index) => (
+        <div key={`section_${index}`} className={styles.sectionContainer}>
           <Section contents={contents} layout={layout} lang={lang} isDefaultLang={isDefaultLang} />
         </div>
       ))

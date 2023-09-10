@@ -1,5 +1,5 @@
 import StyledBlockContent from '@/components/BlockContent/BlockContent';
-import ImageGroup from '@/components/Images/ImageGroup';
+import ImageGroup from '@/components/Images/ImageGroup/ImageGroup';
 import PropTypes from 'prop-types';
 import Video from '@/components/Video/Video';
 import Blog from '@/components/Blog/Blog';
@@ -10,7 +10,7 @@ const Content = ({ content = {}, partSize, lang, isDefaultLang }) => {
   switch (content.itemType) {
     case 'blockContentWithLang': return <StyledBlockContent {...content} partSize={partSize} />;
 
-    case 'empty': return <div />;
+    case 'empty': return <div style={{ width: '100%' }} />;
 
     case 'customImage': return <CustomImage {...content} partSize={partSize} />;
 

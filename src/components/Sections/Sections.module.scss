@@ -1,18 +1,39 @@
 .sections {
-  .section {
+  .sectionContainer {
     width: 100%;
-    display: grid;
-    grid-template-columns: var(--section-layout);
-    padding: var(--margin);
 
-    & > div {
-      &:not(:last-child) {
-        border-right: var(--backgroundColor1) solid 3px;
-        padding-right: var(--margin);
+    .section {
+      width: 100%;
+      display: grid;
+      grid-template-columns: var(--section-layout);
+      padding: var(--margin);
+
+      & > div {
+        &:not(:last-child) {
+          border-right: var(--backgroundColor1) solid 3px;
+          padding-right: var(--margin);
+        }
+
+        &:not(:first-child) {
+          padding-left: var(--margin);
+        }
       }
 
-      &:not(:first-child) {
-        padding-left: var(--margin);
+      @media screen and (max-width: 768px) {
+        grid-template-columns: 100%;
+
+        & > div {
+          margin-bottom: var(--margin);
+
+          &:not(:last-child) {
+            border-right: none;
+            padding-right: 0;
+          }
+
+          &:not(:first-child) {
+            padding: var(--margin) 0 0;
+          }
+        }
       }
     }
   }

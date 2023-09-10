@@ -1,1 +1,1 @@
-export const maxWith = 1200;
+export const maxWith = 1800;

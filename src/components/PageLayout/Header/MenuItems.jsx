@@ -3,7 +3,7 @@ import { getHref } from '@/helpers/getHref';
 import Link from 'next/link';
 import styles from './Header.module.scss';
 
-const MenuItems = ({ href, menu = [], isDefaultLang, langCode }) => menu
+const MenuItems = ({ href, menu, isDefaultLang, langCode }) => (menu || [])
   .filter(({ status, linkType }) => status === 'available' || linkType === 'external')
   .map(({ title = '', shortTitle = '', externalLinkUrl = '', slug = '', linkType, useDocumentTitle = true, linkTitle = '', _key = '', openInNewTab = false }) => {
     const currentHref = getHref(linkType, slug, isDefaultLang, langCode, externalLinkUrl);

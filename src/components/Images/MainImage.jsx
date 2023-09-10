@@ -1,9 +1,10 @@
 import { urlFor } from '@/helpers/sanity';
 import PropTypes from 'prop-types';
+import { maxWith } from '@/settings';
 import { imageType } from './types';
 import style from './images.module.scss';
 
-const MainImage = ({ image, width = 1200, title = '' }) => {
+const MainImage = ({ image, width = maxWith, title = '' }) => {
   const url = urlFor(image).width(width).height(width / 4).url();
 
   return (

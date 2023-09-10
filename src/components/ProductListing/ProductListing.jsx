@@ -4,13 +4,13 @@ import ProductTable from './ProductTable';
 import styles from './ProductListing.module.scss';
 
 const ProductListing = async ({ productListing = {}, lang, isDefaultLang }) => {
-  const { productGroup = [], count = 50 } = productListing;
+  const { productGroup, count = 50 } = productListing;
   const { currency: currencySettings } = await getSiteSettings(lang);
 
   return (
     <div className={styles.productListingPage}>
       <ProductTable
-        products={productGroup}
+        products={productGroup || []}
         count={count}
         lang={lang}
         isDefaultLang={isDefaultLang}

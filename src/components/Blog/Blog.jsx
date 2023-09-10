@@ -9,7 +9,7 @@ const Blog = async ({ blogPage = {}, lang, isDefaultLang }) => {
 
   return (
     <div className={styles.blogPage}>
-      <BlogTable posts={posts} count={count} lang={lang} isDefaultLang={isDefaultLang} />
+      <BlogTable posts={posts || []} count={count} lang={lang} isDefaultLang={isDefaultLang} />
     </div>
   );
 };

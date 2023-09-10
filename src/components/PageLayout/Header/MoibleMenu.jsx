@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import LanguageSwitcher from '@/components/PageLayout/Header/LanguageSwitcher';
 import styles from './Header.module.scss';
@@ -22,6 +22,12 @@ const MobileMenu = ({ menu = [], pageName = '', href = '', isDefaultLang = true,
       return !prevState;
     });
   };
+
+  useEffect(() => {
+    const mainElement = document.getElementById('parent-of-all');
+    mainElement.style.overflow = 'unset';
+    setShowMenu(false);
+  }, []);
 
   return (
     <div className={styles.mobileMenuContainer}>
