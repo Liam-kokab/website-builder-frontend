@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import styles from '@/components/Images/images.module.scss';
 import CustomImage from '@/components/Images/CustomImage';
+import styles from '@/components/Images/images.module.scss';
 
 const ImageTable = ({ images = [], partSize = '12fr', circle = false }) => (
   <div className={styles.imageTable}>

@@ -15,23 +15,6 @@ export const client = createClient({
 const imageBuilder = imageUrlBuilder(client);
 export const urlFor = (source) => imageBuilder.image(source);
 
-export const getPost = async (slug, langCode) => {
-  const query = `*[_type == "post" && slug.current == "${slug}"] {
-    ${documentShearedItems(langCode)}
-  }[0]`;
-
-  return client.fetch(query);
-};
-
-export const getProduct = async (slug, langCode) => {
-  const query = `*[_type == "product" && slug.current == "${slug}"] {
-    "title": title.${langCode},
-    "shortTitle": shortTitle.${langCode},
-  }[0]`;
-
-  return client.fetch(query);
-};
-
 /**
  * Get all pages
  * @return {Promise<{ items: [{ slug: string, status: ('available'|'disabled'|'hidden') }], defaultLang: string, availableLangCodes: [string] }>}
@@ -77,6 +60,31 @@ export const getPageMetadata = async (pageType, slug) => {
 
 export const getPage = async (slug, langCode) => {
   const query = `*[_type == "page" && slug.current == "${slug}"] {
+    ${documentShearedItems(langCode)}
+  }[0]`;
+
+  return client.fetch(query);
+};
+
+export const getPost = async (slug, langCode) => {
+  const query = `*[_type == "post" && slug.current == "${slug}"] {
+    ${documentShearedItems(langCode)}
+  }[0]`;
+
+  return client.fetch(query);
+};
+
+export const getProduct = async (slug, langCode) => {
+  const query = `*[_type == "product" && slug.current == "${slug}"] {
+    "description": description.${langCode},
+    price,
+    "images": imageGroup[] {
+      "title": title.${langCode},
+      crop,
+      hotspot,
+      "description": description.${langCode},
+      asset,  
+    },
     ${documentShearedItems(langCode)}
   }[0]`;
 

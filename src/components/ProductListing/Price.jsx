@@ -22,7 +22,6 @@ const Price = ({ price = {}, currencySettings, lang }) => {
         }
       </span>
     </div>
-
   );
 };
 
