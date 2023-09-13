@@ -5,7 +5,7 @@ import { imageType } from './types';
 import style from './images.module.scss';
 
 const MainImage = ({ image, width = maxWith, title = '' }) => {
-  const url = urlFor(image).width(width).height(width / 4).url();
+  const url = urlFor(image).width(width).height(width / 2).url();
 
   return (
     <div className={style.mainImage}>

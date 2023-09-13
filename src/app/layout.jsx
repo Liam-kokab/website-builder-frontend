@@ -3,11 +3,6 @@ import { getSiteSettings } from '@/helpers/sanity';
 import Providers from '@/helpers/Providers/Providers';
 import './globals.css';
 
-export const metadata = {
-  title: 'Mazi',
-  description: 'Some description',
-};
-
 const getColorObject = (colors) => {
   const colorObject = {};
   Object.keys(colors).filter((name) => !!colors[name].hsl).forEach((name) => {
@@ -20,7 +15,7 @@ const getColorObject = (colors) => {
 };
 
 const RootLayout = async ({ children }) => {
-  const { general, color } = await getSiteSettings();
+  const { color } = await getSiteSettings();
 
   const sanityStyles = {
     ...getColorObject(color),

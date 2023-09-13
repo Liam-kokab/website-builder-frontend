@@ -1,22 +1,9 @@
 import PropTypes from 'prop-types';
-import { getAvailableLangCodes, getDefaultLangCode, getProducts } from '@/helpers/sanity';
 import Product from '@/app/p/[product]/page';
+import { getGenerateMetadataFunc, getGenerateStaticParamsFunc } from '@/helpers/dataGenerators';
 
-export const generateStaticParams = async () => {
-  const [
-    pages,
-    availableLangCodes,
-    defaultLang,
-  ] = await Promise.all([
-    getProducts(),
-    getAvailableLangCodes(),
-    getDefaultLangCode(),
-  ]);
-
-  return availableLangCodes
-    .filter((lang) => lang !== defaultLang)
-    .flatMap((lang) => pages.filter(({ status }) => status === 'available').map(({ slug }) => ({ product: slug, lang })));
-};
+export const generateStaticParams = getGenerateStaticParamsFunc('product', false);
+export const generateMetadata = getGenerateMetadataFunc('product');
 
 const ProductWithLang = ({ params = {} }) => {
   const { lang, product } = params;

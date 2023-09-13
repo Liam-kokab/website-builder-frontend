@@ -1,14 +1,13 @@
-import { getDefaultLangCode, getPage, getPages } from '@/helpers/sanity';
+import { getDefaultLangCode, getPage } from '@/helpers/sanity';
 import MainImage from '@/components/Images/MainImage';
 import Sections from '@/components/Sections/Sections';
 import PageLayout from '@/components/PageLayout/PageLayout';
+import { getGenerateMetadataFunc, getGenerateStaticParamsFunc } from '@/helpers/dataGenerators';
 import { getHref } from '@/helpers/getHref';
 import styles from './page.module.scss';
 
-export const generateStaticParams = async () => {
-  const pages = await getPages();
-  return pages.filter(({ status }) => status === 'available').map(({ slug }) => ({ page: slug }));
-};
+export const generateStaticParams = getGenerateStaticParamsFunc('page', true);
+export const generateMetadata = getGenerateMetadataFunc('page');
 
 const Page = async ({ params = {} }) => {
   const { lang, page } = params;

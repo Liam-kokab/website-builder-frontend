@@ -15,36 +15,10 @@ export const client = createClient({
 const imageBuilder = imageUrlBuilder(client);
 export const urlFor = (source) => imageBuilder.image(source);
 
-/**
- * Get all posts
- * @return {Promise<[{ slug: string, status: ('available'|'disabled'|'hidden') }]>}
- */
-export const getPosts = async () => {
-  const query = `*[_type == "post"]{
-    "slug": slug.current,
-    status,
-  }`;
-
-  return client.fetch(query);
-};
-
 export const getPost = async (slug, langCode) => {
   const query = `*[_type == "post" && slug.current == "${slug}"] {
     ${documentShearedItems(langCode)}
   }[0]`;
-
-  return client.fetch(query);
-};
-
-/**
- * Get all products
- * @return {Promise<[{ slug: string, status: ('available'|'disabled'|'hidden') }]>}
- */
-export const getProducts = async () => {
-  const query = `*[_type == "product"]{
-    "slug": slug.current,
-    status,
-  }`;
 
   return client.fetch(query);
 };
@@ -60,15 +34,45 @@ export const getProduct = async (slug, langCode) => {
 
 /**
  * Get all pages
- * @return {Promise<[{ slug: string, status: ('available'|'disabled'|'hidden') }]>}
+ * @return {Promise<{ items: [{ slug: string, status: ('available'|'disabled'|'hidden') }], defaultLang: string, availableLangCodes: [string] }>}
  */
-export const getPages = async () => {
-  const query = `*[_type == "page"]{
-      "slug": slug.current,
-      status,
+export const getPagesParams = async (pageType) => {
+  const query = `{
+    ${pageType === 'page' ? '"items": *[_type == "page"]{ "slug": slug.current, status },' : ''}
+    ${pageType === 'post' ? '"items": *[_type == "post"]{ "slug": slug.current, status },' : ''}
+    ${pageType === 'product' ? '"items": *[_type == "product"]{ "slug": slug.current, status },' : ''}
+    "allLangCodes": *[_type == "languageSettings"][0],
+    "defaultLang": *[_type == "languageSettings"][0].defaultLanguage,
   }`;
 
-  return client.fetch(query);
+  const res = await client.fetch(query);
+  const availableLangCodes = Object.keys(res.allLangCodes)
+    .filter((key) => key.startsWith('enable_') && res.allLangCodes[key])
+    .map((key) => key.replace('enable_', ''));
+
+  return { ...res, availableLangCodes };
+};
+
+/**
+ * Get a page metadata
+ * @return {Promise<{ item: { slug: string, title: string, shortTitle: string }, defaultLang: string, availableLangCodes: [string], pageNamePrefix: {[key: string]: string} }>}
+ */
+export const getPageMetadata = async (pageType, slug) => {
+  const query = `{
+    ${pageType === 'page' ? `"item": *[_type == "page" && slug.current == "${slug}"][0]{ "slug": slug.current, title, shortTitle },` : ''}
+    ${pageType === 'post' ? `"item": *[_type == "post" && slug.current == "${slug}"][0]{ "slug": slug.current, title, shortTitle },` : ''}
+    ${pageType === 'product' ? `"item": *[_type == "product" && slug.current == "${slug}"][0]{ "slug": slug.current, title, shortTitle },` : ''}
+    "pageNamePrefix": *[_type == "generalSettings"][0].pageNamePrefix,
+    "allLangCodes": *[_type == "languageSettings"][0],
+    "defaultLang": *[_type == "languageSettings"][0].defaultLanguage,
+  }`;
+
+  const res = await client.fetch(query);
+  const availableLangCodes = Object.keys(res.allLangCodes)
+    .filter((key) => key.startsWith('enable_') && res.allLangCodes[key])
+    .map((key) => key.replace('enable_', ''));
+
+  return { ...res, availableLangCodes };
 };
 
 export const getPage = async (slug, langCode) => {

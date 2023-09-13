@@ -1,11 +1,10 @@
-import { getDefaultLangCode, getProduct, getProducts } from '@/helpers/sanity';
 import PageLayout from '@/components/PageLayout/PageLayout';
+import { getDefaultLangCode, getProduct } from '@/helpers/sanity';
 import { getHref } from '@/helpers/getHref';
+import { getGenerateMetadataFunc, getGenerateStaticParamsFunc } from '@/helpers/dataGenerators';
 
-export const generateStaticParams = async () => {
-  const posts = await getProducts();
-  return posts.filter(({ status }) => status === 'available').map(({ slug }) => ({ product: slug }));
-};
+export const generateStaticParams = getGenerateStaticParamsFunc('product', true);
+export const generateMetadata = getGenerateMetadataFunc('product');
 
 const Product = async ({ params }) => {
   const { lang, product } = params;

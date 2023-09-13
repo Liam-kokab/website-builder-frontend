@@ -1,23 +1,10 @@
 import PropTypes from 'prop-types';
-import { getAvailableLangCodes, getDefaultLangCode, getPages } from '@/helpers/sanity';
 import Page from '@/app/s/[page]/page';
 import Index from '@/app/page';
+import { getGenerateMetadataFunc, getGenerateStaticParamsFunc } from '@/helpers/dataGenerators';
 
-export const generateStaticParams = async () => {
-  const [
-    pages,
-    availableLangCodes,
-    defaultLang,
-  ] = await Promise.all([
-    getPages(),
-    getAvailableLangCodes(),
-    getDefaultLangCode(),
-  ]);
-
-  return availableLangCodes
-    .filter((lang) => lang !== defaultLang)
-    .flatMap((lang) => pages.filter(({ status }) => status === 'available').map(({ slug }) => ({ page: slug === 'index' ? 'h' : slug, lang })));
-};
+export const generateStaticParams = getGenerateStaticParamsFunc('page', false);
+export const generateMetadata = getGenerateMetadataFunc('page');
 
 const PageWithLang = ({ params = {} }) => {
   const { lang, page } = params;
