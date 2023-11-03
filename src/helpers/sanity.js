@@ -2,8 +2,8 @@ import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { documentShearedItems, image } from '@/helpers/sanityTypes';
 
-export const projectId = process.env.SANITY_PROJECT_ID;
-export const dataset = process.env.SANITY_DATASET;
+export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
 
 export const client = createClient({
   projectId,
