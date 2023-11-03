@@ -8,6 +8,9 @@ import { getPagesParams, getPageMetadata } from './sanity';
 export const getGenerateStaticParamsFunc = (pageType = 'page', useDefaultLang = true) => async () => {
   const { items = [], defaultLang, availableLangCodes = [] } = await getPagesParams(pageType);
 
+  // Add checkout page
+  if (pageType === 'checkout') items.push({ slug: 'checkout', status: 'available' });
+
   return availableLangCodes
     .filter((lang) => (useDefaultLang ? lang === defaultLang : lang !== defaultLang))
     .flatMap((lang) => items.filter(({ status }) => status === 'available').map(({ slug }) => ({
