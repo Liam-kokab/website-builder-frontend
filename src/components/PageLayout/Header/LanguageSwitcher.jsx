@@ -3,10 +3,7 @@
 import { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getPageTypeFromHref, removeLangFromPath, getHref, getSlugFromHref } from '@/helpers/getHref';
-
-const getLangName = (lang) => new Intl.DisplayNames([lang], {
-  type: 'language',
-}).of(lang);
+import { getLangName } from '@/helpers/language';
 
 const getUpperCaseFirstLetter = (str = '') => str.charAt(0).toUpperCase() + str.slice(1);
 

@@ -1,0 +1,31 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 1;
+  transition: .3s ease-in-out opacity;
+
+  .popupInner {
+    border-radius: var(--borderRadius);
+    background-color: var(--backgroundColor2);
+    box-shadow: var(--boxShadow);
+
+    min-width: 35dvw;
+    max-width: 80dvw;
+
+    min-height: 15dvh;
+    max-height: 70dvh;
+
+    padding: var(--margin);
+
+  }
+}

@@ -41,6 +41,8 @@ export const blog = (langCode) => `
 
 export const productListing = (langCode) => `
   count,
+  showCartButton,
+  "buttonText": buttonText.${langCode},
   productGroup[]->{
     "title": title.${langCode},
     "shortTitle": shortTitle.${langCode},

@@ -8,7 +8,7 @@ import styles from './ProductListing.module.scss';
 
 const imageWidth = 250;
 
-const ProductTable = ({ count = 100, products = [], lang, isDefaultLang, currencySettings }) => (
+const ProductTable = ({ products = [], lang, isDefaultLang, currencySettings }) => (
   <div className={styles.productTable}>
     {
       products
@@ -44,13 +44,12 @@ const ProductTable = ({ count = 100, products = [], lang, isDefaultLang, currenc
 );
 
 ProductTable.propTypes = {
-  count: PropTypes.number,
   products: PropTypes.arrayOf(PropTypes.shape({
     description: PropTypes.string,
     mainImage: PropTypes.shape({
       asset: PropTypes.shape({}),
     }),
-    price: PropTypes.objectOf(PropTypes.string),
+    price: PropTypes.shape({}),
     shortTitle: PropTypes.string,
     slug: PropTypes.string,
     status: PropTypes.oneOf(['available', 'disabled', 'hidden']),

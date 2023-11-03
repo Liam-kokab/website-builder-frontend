@@ -45,6 +45,7 @@ export const getPageMetadata = async (pageType, slug) => {
     ${pageType === 'page' ? `"item": *[_type == "page" && slug.current == "${slug}"][0]{ "slug": slug.current, title, shortTitle },` : ''}
     ${pageType === 'post' ? `"item": *[_type == "post" && slug.current == "${slug}"][0]{ "slug": slug.current, title, shortTitle },` : ''}
     ${pageType === 'product' ? `"item": *[_type == "product" && slug.current == "${slug}"][0]{ "slug": slug.current, title, shortTitle },` : ''}
+    ${pageType === 'checkout' ? '"item": *[_type == "checkoutFormSettings"][0]{ title },' : ''}
     "pageNamePrefix": *[_type == "generalSettings"][0].pageNamePrefix,
     "allLangCodes": *[_type == "languageSettings"][0],
     "defaultLang": *[_type == "languageSettings"][0].defaultLanguage,
@@ -146,4 +147,37 @@ export const getAvailableLangCodes = async () => {
   return Object.keys(res)
     .filter((key) => key.startsWith('enable_') && res[key])
     .map((key) => key.replace('enable_', ''));
+};
+
+export const getCheckoutPage = async (langCode) => {
+  const query = `{
+    "checkoutPage": *[_type == "checkoutFormSettings"][0] {
+      "title": title.${langCode},
+      mainImage { ${image(langCode)} },
+      "errorMessage": errorMessage.${langCode},
+      "submitButtonText": submitButtonText.${langCode},
+      "successMessage": successMessage.${langCode},
+      "beforeText": beforeText.${langCode},
+      "afterText": afterText.${langCode},
+      formFields[] {
+        "title": title,
+        "errorMessage": errorMessage,
+        type,
+        isRequired
+      },
+    },
+    "productListing": *[_type == "product"] {
+      "title": title.${langCode},
+      "shortTitle": shortTitle.${langCode},
+      "slug": slug.current,
+      "description": description.${langCode},
+      price,
+      stock,
+      status,
+      mainImage { ${image(langCode)} },
+    },
+    "currency": *[_type == "currencySettings"][0],
+  }`;
+
+  return client.fetch(query);
 };

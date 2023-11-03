@@ -1,14 +1,14 @@
 .blogPage {
-  width: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 100%;
 
   .blogTable {
-    width: 80%;
     display: flex;
     flex-direction: column;
     gap: var(--margin);
+    width: 80%;
 
     .blogTableRow {
       display: grid;

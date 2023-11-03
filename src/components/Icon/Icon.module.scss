@@ -1,0 +1,25 @@
+.icon {
+
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  background-color: var(--accentColor);
+  color: var(--backgroundColor1);
+  padding: .5rem 1rem;
+  border-radius: calc(var(--borderRadius) / 3);
+  box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.3);
+
+  span {
+    font-size: 120%;
+    font-weight: 600;
+  }
+
+  &:hover {
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.5);
+    color: var(--backgroundColor2);
+  }
+}

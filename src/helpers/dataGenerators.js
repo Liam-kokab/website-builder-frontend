@@ -1,7 +1,7 @@
 import { getPagesParams, getPageMetadata } from './sanity';
 
 /**
- * @param pageType {'page' | 'post' | 'product'}
+ * @param pageType {'page' | 'post' | 'product' | 'checkout'}
  * @param useDefaultLang {boolean}
  * @return {function}
  */
@@ -14,12 +14,13 @@ export const getGenerateStaticParamsFunc = (pageType = 'page', useDefaultLang = 
       ...(pageType === 'page' ? { page: (!useDefaultLang && slug === 'index') ? 'h' : slug } : {}),
       ...(pageType === 'post' ? { post: slug } : {}),
       ...(pageType === 'product' ? { product: slug } : {}),
+      ...(pageType === 'checkout' ? {} : {}),
       ...(useDefaultLang ? {} : { lang }),
     })));
 };
 
 /**
- * @param pageType {'page' | 'post' | 'product'}
+ * @param pageType {'page' | 'post' | 'product' | 'checkout'}
  * @param isIndex {boolean = false}
  * @return {function}
  */

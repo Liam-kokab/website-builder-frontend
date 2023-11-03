@@ -1,11 +1,11 @@
 'use client';
 
 import PropTypes from 'prop-types';
-import { useCart } from '@/helpers/Providers/CartProvider';
+import { useProduct } from '@/helpers/Providers/CartProvider';
 import styles from './ProductListing.module.scss';
 
 const Buy = ({ productId }) => {
-  const { AddOne, RemoveOne, count } = useCart(productId);
+  const { AddOne, RemoveOne, count } = useProduct(productId);
 
   return (
     <div className={styles.buy}>

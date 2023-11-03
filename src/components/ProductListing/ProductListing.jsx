@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { getSiteSettings } from '@/helpers/sanity';
+import GoToCart from '@/components/GoToCart/GoToCart';
 import ProductTable from './ProductTable';
 import styles from './ProductListing.module.scss';
 
 const ProductListing = async ({ productListing = {}, lang, isDefaultLang }) => {
-  const { productGroup, count = 50 } = productListing;
+  const { productGroup, count = 50, showCartButton, buttonText } = productListing;
   const { currency: currencySettings } = await getSiteSettings(lang);
 
   return (
@@ -16,6 +17,10 @@ const ProductListing = async ({ productListing = {}, lang, isDefaultLang }) => {
         isDefaultLang={isDefaultLang}
         currencySettings={currencySettings}
       />
+
+      <div className={styles.goButtonContainer}>
+        <GoToCart buttonText={buttonText} showCartButton={showCartButton} lang={lang} isDefaultLang={isDefaultLang} />
+      </div>
     </div>
   );
 };

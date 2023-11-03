@@ -1,6 +1,6 @@
 /**
- * retuns href for based on linkType and slug
- * @param linkType {'internalPage' | 'internalProduct' | 'internalPost' | 'external' | 'index'}
+ * returns href for based on linkType and slug
+ * @param linkType {'internalPage' | 'internalProduct' | 'internalPost' | 'external' | 'index' | 'internalExtra'}
  * @param slug {string}
  * @param isDefaultLang {boolean}
  * @param langCode {string}
@@ -20,6 +20,8 @@ export const getHref = (linkType, slug, isDefaultLang, langCode, externalLinkUrl
       return `${hrefStart}/p/${slug}`;
     case 'internalPost':
       return `${hrefStart}/b/${slug}`;
+    case 'internalExtra':
+      return `${hrefStart}/e/${slug}`;
     case 'external':
       return externalLinkUrl;
     default:
@@ -30,13 +32,14 @@ export const getHref = (linkType, slug, isDefaultLang, langCode, externalLinkUrl
 /**
  *
  * @param href
- * @return {'internalPage' | 'internalProduct' | 'internalPost' | 'external' | 'index'}
+ * @return {'internalPage' | 'internalProduct' | 'internalPost' | 'external' | 'index' | 'internalExtra'}
  */
 export const getPageTypeFromHref = (href = '') => {
   if (href === '/' || href.includes('/s/h')) return 'index';
   if (href.includes('/s/')) return 'internalPage';
   if (href.includes('/p/')) return 'internalProduct';
   if (href.includes('/b/')) return 'internalPost';
+  if (href.includes('/e/')) return 'internalExtra';
   return 'external';
 };
 

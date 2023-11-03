@@ -7,7 +7,7 @@ import styles from './blog.module.scss';
 const imageWidth = 250;
 const mobileImageWidth = 750;
 
-const BlogTable = ({ count = 100, posts = [], lang, isDefaultLang }) => (
+const BlogTable = ({ posts = [], lang, isDefaultLang }) => (
   <div className={styles.blogTable}>
     {
       posts
@@ -44,7 +44,6 @@ const BlogTable = ({ count = 100, posts = [], lang, isDefaultLang }) => (
 );
 
 BlogTable.propTypes = {
-  count: PropTypes.number,
   posts: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     shortTitle: PropTypes.string,

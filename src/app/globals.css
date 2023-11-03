@@ -21,7 +21,9 @@
   --maxWidth: 1200px;
   --borderRadius: 12px;
   --elemetBorderRadius: 5px;
-  --boxShadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --boxShadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  --boxShadow2: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  --boxShadow3: 5px 5px 15px rgba(0, 0, 0, 0.4);
 
   /* screen sizes */
     --max-width: 1200px;
