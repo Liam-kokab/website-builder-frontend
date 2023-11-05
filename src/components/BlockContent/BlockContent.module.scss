@@ -1,23 +1,30 @@
-.block-content {
+.blockContent {
+  :first-child {
+    margin-top: 0;
+  }
+
   width: 100%;
 
   h1 {
     font-size: 2em;
-    margin: .67em 0;
+    margin: .8em 0 .4em;
   }
 
   h2 {
     font-size: 1.5em;
-    margin: .75em 0;
+    margin: .7em 0 .35em;
   }
 
   h3 {
     font-size: 1.17em;
-    margin: .83em 0;
+    margin: .5em 0 .25em;
   }
 
+  h4 {
+    font-size: 1em;
+    margin: .3em 0 .15em;
+  }
 
-  h4,
   p,
   blockquote,
   ul,
@@ -27,17 +34,8 @@
   dl,
   dir,
   menu {
-    margin: 1.12em 0;
-  }
-
-  h5 {
-    font-size: .83em;
-    margin: 1.5em 0;
-  }
-
-  h6 {
-    font-size: .75em;
-    margin: 1.67em 0;
+    margin: 0.12em 0;
+    min-height: 1.12em;
   }
 
   h1,
@@ -199,11 +197,6 @@
     }
   }
 
-  p {
-    line-height: 2rem;
-    margin: revert;
-  }
-
   img {
     width: 90%;
   }
@@ -227,6 +220,7 @@
     width: 100%;
   }
 }
+
 
 
 

@@ -22,7 +22,7 @@ const Page = async ({ params = {} }) => {
 
   const defaultLang = await getDefaultLangCode();
   const currentLang = lang || defaultLang;
-  const { checkoutPage, productListing, currency } = await getCheckoutPage(currentLang);
+  const { checkoutPage, productListing, currency } = await getCheckoutPage(currentLang, defaultLang);
   const { submitButtonText, successMessage, beforeText, afterText, formFields, title, mainImage, errorMessage } = checkoutPage;
 
   return (

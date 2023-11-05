@@ -149,7 +149,7 @@ export const getAvailableLangCodes = async () => {
     .map((key) => key.replace('enable_', ''));
 };
 
-export const getCheckoutPage = async (langCode) => {
+export const getCheckoutPage = async (langCode, defaultLang) => {
   const query = `{
     "checkoutPage": *[_type == "checkoutFormSettings"][0] {
       "title": title.${langCode},
@@ -160,10 +160,14 @@ export const getCheckoutPage = async (langCode) => {
       "beforeText": beforeText.${langCode},
       "afterText": afterText.${langCode},
       formFields[] {
-        "title": title,
-        "errorMessage": errorMessage,
+        "title": title.${langCode},
+        "titleDefault": title.${defaultLang},
+        "errorMessage": errorMessage.${langCode},
         type,
-        isRequired
+        isRequired,
+        helpTextType,
+        "helpTextTooltip": helpTextTooltip.${langCode},
+        "helpTextPopUp": helpTextPopUp.${langCode},
       },
     },
     "productListing": *[_type == "product"] {

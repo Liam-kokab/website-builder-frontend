@@ -13,16 +13,23 @@ import PopUp from '@/components/PopUp/PopUp';
 import Icon from '@/components/Icon/Icon';
 import Button from '@/components/Button/Button';
 
+import FormFiled from '@/components/FormFiled/FormFiled';
 import styles from './checkout.module.scss';
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const validateField = (field, value, defaultLang, currentLang) => {
+/**
+ * Validate field
+ * @param field {{ isRequired: boolean, errorMessage: string, type: string }}
+ * @param value
+ * @return {string}
+ */
+const validateField = (field = {}, value) => {
   const { isRequired, errorMessage, type } = field;
   const isValueValid = type === 'email' ? EMAIL_REGEX.test(value) : true;
   if (!isRequired) return '';
   return (!value || !isValueValid)
-    ? (errorMessage?.[currentLang] || errorMessage[defaultLang] || '')
+    ? (errorMessage || '')
     : '';
 };
 
@@ -65,7 +72,6 @@ const sendRequest = async (url, values, allProducts, products, currencySettings)
 const OrderForm = ({
   fields = [],
   backendUrl,
-  defaultLang,
   currentLang,
   products = [],
   currencySettings,
@@ -88,29 +94,32 @@ const OrderForm = ({
     const { name, value, checked } = e.target;
     const newValue = e.target.type === 'checkbox' ? checked : value;
     setFormData((prev) => ({ ...prev, [name]: newValue }));
-    const field = fields.find((f) => f.title[defaultLang] === name);
-    setFormErrors((prev) => ({ ...prev, [name]: validateField(field, newValue, defaultLang, currentLang) }));
-  }, [currentLang, defaultLang, fields]);
+    const field = fields.find((f) => f.title === name);
+    setFormErrors((prev) => (prev[name]
+      ? ({ ...prev, [name]: validateField(field, newValue) })
+      : prev
+    ));
+  }, [fields]);
 
   const onBlur = useCallback((e) => {
     const { name, value, checked } = e.target;
     const newValue = e.target.type === 'checkbox' ? checked : value;
-    const field = fields.find((f) => f.title[defaultLang] === name);
-    setFormErrors((prev) => ({ ...prev, [name]: validateField(field, newValue, defaultLang, currentLang) }));
-  }, [currentLang, defaultLang, fields]);
+    const field = fields.find((f) => f.title === name);
+    setFormErrors((prev) => ({ ...prev, [name]: validateField(field, newValue) }));
+  }, [fields]);
 
   const onSubmit = useCallback(async () => {
     const errors = {};
     const values = {};
 
     fields.forEach((field) => {
-      const { title } = field;
-      const value = formData[title[defaultLang]];
-      const fieldError = validateField(field, value, defaultLang, currentLang);
+      const { title, titleDefault } = field;
+      const value = formData[title];
+      const fieldError = validateField(field, value);
       if (fieldError) {
-        errors[title[defaultLang]] = fieldError;
+        errors[title] = fieldError;
       } else {
-        values[title[defaultLang]] = value || '';
+        values[titleDefault] = value || '';
       }
     });
 
@@ -131,10 +140,10 @@ const OrderForm = ({
     setResult(ok);
 
     setLoading(false);
-  }, [allProducts, backendUrl, currencySettings, currentLang, defaultLang, fields, formData, products]);
+  }, [allProducts, backendUrl, currencySettings, currentLang, fields, formData, products]);
 
-  const onCompleted = useCallback(({ target }) => {
-    if (target.dataset.status === 'success') {
+  const onCompleted = useCallback(() => {
+    if (result) {
       cleatCart();
       setFormErrors({});
       setFormData({});
@@ -142,29 +151,22 @@ const OrderForm = ({
     }
 
     setResult(null);
-  }, [cleatCart, currentLang]);
+  }, [cleatCart, currentLang, isDefaultLang, result]);
 
   return (
     <form className={styles.formContainer}>
       <div className={styles.formFields}>
         {
-          fields.map(({ title, type }) => (
-            <div className={`${styles.formField}`} key={title[defaultLang]}>
-              <div className={`${styles.formField} ${styles[type]}`}>
-                <label htmlFor={title[defaultLang]}>{title[currentLang]}</label>
-                <input
-                  type={type}
-                  id={title[defaultLang]}
-                  name={title[defaultLang]}
-                  placeholder={title[currentLang]}
-                  onChange={handleInputChange}
-                  disabled={loading}
-                  value={formData[title[defaultLang]] || ''}
-                  onBlur={onBlur}
-                />
-              </div>
-              <span className={styles.error}>{formErrors[title[defaultLang]] || ''}</span>
-            </div>
+          fields.map((filed) => (
+            <FormFiled
+              key={`${filed.type}-${filed.title}`}
+              onBlur={onBlur}
+              filed={filed}
+              onChange={handleInputChange}
+              value={formData[filed.title] || ''}
+              error={formErrors[filed.title] || ''}
+              disabled={loading}
+            />
           ))
         }
       </div>
@@ -180,7 +182,7 @@ const OrderForm = ({
         </Button>
       </div>
 
-      <PopUp show={result !== null} className={styles.popUpContainer}>
+      <PopUp show={result !== null} className={styles.popUpContainer} onClose={onCompleted}>
         <Icon icon={result ? faCircleCheck : faCircleExclamation} />
         <div className={styles.popUpText}>
           { popUpMessage?.split('\n').map((text, index) => <p key={`pm-${index}`}>{text}</p>) }
@@ -199,13 +201,20 @@ const OrderForm = ({
 
 OrderForm.propTypes = {
   fields: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.objectOf(PropTypes.string).isRequired,
+    title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     isRequired: PropTypes.bool.isRequired,
-    errorMessage: PropTypes.objectOf(PropTypes.string),
+    errorMessage: PropTypes.string,
+    titleDefault: PropTypes.string.isRequired,
+    helpTextTooltip: PropTypes.string,
+    helpTextPopUp: PropTypes.arrayOf(PropTypes.shape({
+      _key: PropTypes.string.isRequired,
+      children: PropTypes.arrayOf(PropTypes.shape({
+        _key: PropTypes.string.isRequired,
+      })),
+    })),
   })),
   backendUrl: PropTypes.string.isRequired,
-  defaultLang: PropTypes.string.isRequired,
   currentLang: PropTypes.string.isRequired,
   products: PropTypes.arrayOf(PropTypes.shape({
     description: PropTypes.string,

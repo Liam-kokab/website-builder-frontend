@@ -4,7 +4,7 @@
  * @param slug {string}
  * @param isDefaultLang {boolean}
  * @param langCode {string}
- * @param externalLinkUrl {string}
+ * @param externalLinkUrl {string?}
  * @return {string}
  */
 export const getHref = (linkType, slug, isDefaultLang, langCode, externalLinkUrl = '') => {

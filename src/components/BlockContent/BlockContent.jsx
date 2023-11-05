@@ -1,31 +1,33 @@
-import BlockContent from '@sanity/block-content-to-react';
-import BlockContentLink from '@/components/BlockContent/BlockContentLink';
+import { PortableText } from '@portabletext/react';
+// import BlockContentLink from '@/components/BlockContent/BlockContentLink';
 import PropTypes from 'prop-types';
-import styles from './content.module.scss';
+import { classNames } from '@/helpers/string';
+import styles from './BlockContent.module.scss';
 
-const serializers = {
+const components = {
   marks: {
     center: (props) => <div className={styles.center}>{props.children}</div>,
-    link: BlockContentLink,
+    // link: BlockContentLink,
   },
 };
 
-const StyledBlockContent = async ({ blockContent = [] }) => (
-  <div className={styles.blockContent}>
-    <BlockContent
-      serializers={serializers}
-      blocks={blockContent}
+const BlockContent = ({ blockContent = [], className = '' }) => (
+  <div className={classNames(styles.blockContent, className)}>
+    <PortableText
+      value={blockContent}
+      components={components}
     />
   </div>
 );
 
-StyledBlockContent.propTypes = {
+BlockContent.propTypes = {
   blockContent: PropTypes.arrayOf(PropTypes.shape({
     _key: PropTypes.string.isRequired,
     children: PropTypes.arrayOf(PropTypes.shape({
       _key: PropTypes.string.isRequired,
     })),
   })),
+  className: PropTypes.string,
 };
 
-export default StyledBlockContent;
+export default BlockContent;

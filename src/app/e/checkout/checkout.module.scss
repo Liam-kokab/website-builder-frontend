@@ -37,59 +37,6 @@
       gap: var(--margin);
       width: 100%;
 
-      .formField {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-
-        &.checkbox {
-          flex-direction: row-reverse;
-          justify-content: flex-end;
-          align-items: center;
-
-          label {
-            margin: 0;
-          }
-
-          input {
-            width: auto;
-            margin: 0;
-          }
-        }
-
-        label {
-          width: 100%;
-          font-size: 0.9rem;
-          font-weight: 700;
-          margin-bottom: 1px;
-          padding-left: 5px;
-          user-select: none;
-        }
-
-        input {
-          padding: calc(var(--margin) / 3);
-          border: 1px solid var(--borderColor);
-          border-radius: 5px;
-          font-size: 1rem;
-          color: var(--textColor);
-          transition: border-color 0.2s ease-in-out;
-
-          &:focus {
-              outline: none;
-              border-color: var(--primaryColor);
-          }
-        }
-
-        .error {
-          margin-left: 5px;
-          color: var(--errorColor);
-          font-size: 0.8rem;
-          margin-top: 2px;
-          height: 1rem;
-          font-style: italic;
-        }
-      }
-
       @media screen and (max-width: 768px) {
         grid-template-columns: 1fr;
       }
@@ -109,16 +56,17 @@
       justify-content: center;
       align-items: center;
 
-      gap: calc(var(--margin) * 2);
+      gap: calc(var(--margin) * 1.5);
 
       .popUpText {
+        width: 100%;
         text-align: left;
         font-size: 1.2rem;
         font-weight: 500;
         line-height: 1.5;
 
         p:not(:last-child) {
-          margin-bottom: 1rem;
+          margin-bottom: .5rem;
         }
       }
     }
