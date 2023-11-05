@@ -9,6 +9,7 @@ import { urlFor } from '@/helpers/sanity';
 import Price from '@/components/ProductListing/Price';
 import Buy from '@/components/ProductListing/Buy';
 import productStyles from '@/components/ProductListing/ProductListing.module.scss';
+import { classNames } from '@/helpers/string';
 import styles from './checkout.module.scss';
 
 const imageWidth = 100;
@@ -40,60 +41,56 @@ const CheckoutProductList = ({ products = [], lang, isDefaultLang, currencySetti
   }
 
   return (
-    <table className={styles.productTable}>
-      <tbody>
-        {
-          currentProducts.map(({ title, shortTitle, slug, mainImage, price, count }, index) => (
-            <tr key={`${slug}-${index}`}>
-              <td>
-                {
-                  mainImage?.asset
-                    ? (
-                      <Link
-                        className={productStyles.imageContainer}
-                        href={getHref('internalProduct', slug, isDefaultLang, lang)}
-                      >
-                        <img
-                          src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
-                          alt={mainImage.title}
-                        />
-                      </Link>
-                    )
-                    : <div />
-                }
-              </td>
-              <td>
-                <Link className={productStyles.titleDescription} href={getHref('internalProduct', slug, isDefaultLang, lang)}>
-                  {shortTitle || title}
-                </Link>
-              </td>
-              <td>
-                <Price price={price} currencySettings={currencySettings} lang={lang} />
-              </td>
-              <td>
-                <Buy productId={slug} />
-              </td>
-              <td>
-                <Price
-                  price={{ [currencySettings.defaultCurrency]: price[currencySettings.defaultCurrency] * count }}
-                  currencySettings={currencySettings}
-                  lang={lang}
-                />
-              </td>
-            </tr>
-          ))
-        }
-        <tr>
-          <td colSpan="5">
-            <Price
-              price={{ [currencySettings.defaultCurrency]: total }}
-              currencySettings={currencySettings}
-              lang={lang}
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div className={styles.productTable}>
+      {
+        currentProducts.map(({ title, shortTitle, slug, mainImage, price, count }, index) => (
+          <div key={`${slug}-${index}`} className={styles.productTableRow}>
+            <span className={styles.productTableCell}>
+              {
+                mainImage?.asset
+                  ? (
+                    <Link
+                      className={productStyles.imageContainer}
+                      href={getHref('internalProduct', slug, isDefaultLang, lang)}
+                    >
+                      <img
+                        src={urlFor(mainImage).width(imageWidth).height(Math.round((imageWidth * 9) / 16)).url()}
+                        alt={mainImage.title}
+                      />
+                    </Link>
+                  )
+                  : <div />
+              }
+            </span>
+            <span className={classNames(styles.productTableCell, styles.productTitle)}>
+              <Link className={productStyles.titleDescription} href={getHref('internalProduct', slug, isDefaultLang, lang)}>
+                {shortTitle || title}
+              </Link>
+            </span>
+            <span className={styles.productTableCell}>
+              <Price price={price} currencySettings={currencySettings} lang={lang} />
+            </span>
+            <span className={styles.productTableCell}>
+              <Buy productId={slug} />
+            </span>
+            <span className={styles.productTableCell}>
+              <Price
+                price={{ [currencySettings.defaultCurrency]: price[currencySettings.defaultCurrency] * count }}
+                currencySettings={currencySettings}
+                lang={lang}
+              />
+            </span>
+          </div>
+        ))
+      }
+      <div className={styles.productTableTotal}>
+        <Price
+          price={{ [currencySettings.defaultCurrency]: total }}
+          currencySettings={currencySettings}
+          lang={lang}
+        />
+      </div>
+    </div>
   );
 };
 

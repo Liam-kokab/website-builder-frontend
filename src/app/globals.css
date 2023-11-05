@@ -35,6 +35,10 @@
     --footerSize: 5rem;
     --mainElementsWidth: calc(100dvw - var(--margin) * 2);
 
+  @media (max-width: 768px) {
+    --margin: .75rem;
+  }
+
 }
 
 * {
