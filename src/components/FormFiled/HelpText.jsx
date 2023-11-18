@@ -15,7 +15,7 @@ const HelpText = ({ helpTextType = 'none', helpTextTooltip = '', helpTextPopUp =
   if (helpTextType === 'tooltip') {
     return (
       <span className={styles.helpText}>
-        <button type="button" className={styles.toolTipButton}>
+        <button type="button" className={styles.toolTipButton} aria-label="close">
           <Icon icon={faCircleExclamation} className={styles.toolTipButton} />
         </button>
         <div className={styles.tooltipText}>
@@ -30,7 +30,7 @@ const HelpText = ({ helpTextType = 'none', helpTextTooltip = '', helpTextPopUp =
 
     return (
       <span className={styles.helpText}>
-        <button type="button" className={styles.toolTipButton} onClick={closePopUp}>
+        <button type="button" className={styles.toolTipButton} onClick={closePopUp} aria-label="close">
           <Icon icon={faCircleExclamation} className={styles.toolTipButton} />
         </button>
         <PopUp show={show} onClose={closePopUp}>

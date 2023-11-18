@@ -69,7 +69,13 @@ const ImageAlbum = ({ images = [], partSize = '12fr', circle = false }) => {
   return (
     <>
       <div className={styles.imageAlbumContainer} ref={mainContainer} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
-        <button type="button" className={styles.currentImage} data-index={currentImageIndex} onClick={showBigImageHandler}>
+        <button
+          type="button"
+          className={styles.currentImage}
+          data-index={currentImageIndex}
+          onClick={showBigImageHandler}
+          aria-label="show big image"
+        >
           <CustomImage partSize={partSize} image={{ ...currentImage, circle }} />
         </button>
         <div className={styles.imageAlbumListContainer}>
@@ -81,6 +87,7 @@ const ImageAlbum = ({ images = [], partSize = '12fr', circle = false }) => {
                 key={`${image.title}-${index}`}
                 data-index={index}
                 onClick={onImageClick}
+                aria-label="select image"
               >
                 <CustomImage partSize="1fr" image={{ ...image, circle }} />
               </button>
@@ -91,7 +98,7 @@ const ImageAlbum = ({ images = [], partSize = '12fr', circle = false }) => {
       {
         showBigImage
           ? (
-            <button type="button" className={styles.bigImage} onClick={showBigImageHandler}>
+            <button type="button" className={styles.bigImage} onClick={showBigImageHandler} aria-label="close">
               <CustomImage partSize="12fr" image={currentImage} />
             </button>
           ) : null

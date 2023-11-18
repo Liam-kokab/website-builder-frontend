@@ -31,7 +31,13 @@ const MobileMenu = ({ menu = [], pageName = '', href = '', isDefaultLang = true,
 
   return (
     <div className={styles.mobileMenuContainer}>
-      <button onClick={onClick} type="button" className={`${styles.menuHamburgerButton} ${showMenu ? styles.close : styles.open}`}>
+      <button
+        onClick={onClick}
+        type="button"
+        className={`${styles.menuHamburgerButton}
+        ${showMenu ? styles.close : styles.open}`}
+        aria-label="open menu"
+      >
         <span />
       </button>
       {

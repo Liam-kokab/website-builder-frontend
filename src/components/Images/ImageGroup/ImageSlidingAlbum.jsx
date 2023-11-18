@@ -94,7 +94,14 @@ const ImageSlidingAlbum = ({ images = [], partSize = '12fr', circle = false }) =
         onTouchEnd={onTouchEnd}
       >
         {images.map((image, index) => (
-          <button type="button" className={styles.albumImage} key={`${image.title}-${index}`} data-index={index} onClick={onImageClick}>
+          <button
+            type="button"
+            className={styles.albumImage}
+            key={`${image.title}-${index}`}
+            data-index={index}
+            onClick={onImageClick}
+            aria-label="show image"
+          >
             <CustomImage partSize={partSize} image={{ ...image, circle }} />
           </button>
         ))}
@@ -102,7 +109,7 @@ const ImageSlidingAlbum = ({ images = [], partSize = '12fr', circle = false }) =
       {
         showBigImage
           ? (
-            <button type="button" className={styles.bigImage} onClick={showBigImageHandler}>
+            <button type="button" className={styles.bigImage} onClick={showBigImageHandler} aria-label="close">
               <CustomImage partSize="12fr" image={images[currentImageIndex.current]} />
             </button>
           ) : null
