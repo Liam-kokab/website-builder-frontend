@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Link from 'next/link';
-import { urlFor } from '@/helpers/sanity';
+import { urlFor } from '@/helpers/imageUrl';
 import { getHref } from '@/helpers/getHref';
 import styles from './blog.module.scss';
 

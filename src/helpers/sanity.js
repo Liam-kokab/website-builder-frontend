@@ -12,9 +12,6 @@ export const client = createClient({
   apiVersion: '2023-06-15',
 });
 
-const imageBuilder = imageUrlBuilder(client);
-export const urlFor = (source) => imageBuilder.image(source);
-
 /**
  * Get all pages
  * @return {Promise<{ items: [{ slug: string, status: ('available'|'disabled'|'hidden') }], defaultLang: string, availableLangCodes: [string] }>}

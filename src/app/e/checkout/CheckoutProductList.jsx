@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { useCart } from '@/helpers/Providers/CartProvider';
 import { getHref } from '@/helpers/getHref';
-import { urlFor } from '@/helpers/sanity';
+import { urlFor } from '@/helpers/imageUrl';
 import Price from '@/components/ProductListing/Price';
 import Buy from '@/components/ProductListing/Buy';
 import productStyles from '@/components/ProductListing/ProductListing.module.scss';

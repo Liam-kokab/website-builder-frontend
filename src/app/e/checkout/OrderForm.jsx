@@ -7,7 +7,7 @@ import { faCircleCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-
 import { getHref } from '@/helpers/getHref';
 import { getLangName } from '@/helpers/language';
 import { useCart } from '@/helpers/Providers/CartProvider';
-import { urlFor } from '@/helpers/sanity';
+import { urlFor } from '@/helpers/imageUrl';
 
 import PopUp from '@/components/PopUp/PopUp';
 import Icon from '@/components/Icon/Icon';

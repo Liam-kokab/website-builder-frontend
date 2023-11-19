@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 export const imageType = PropTypes.shape({
   description: PropTypes.string,
-  imageId: PropTypes.string.isRequired,
   hotspot: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number,

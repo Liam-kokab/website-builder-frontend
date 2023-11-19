@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import styles from '@/components/Images/images.module.scss';
-import { urlFor } from '@/helpers/sanity';
+import { urlFor } from '@/helpers/imageUrl';
 import { maxWith } from '@/settings';
 import { getNumberFromString } from '@/helpers/string';
 
