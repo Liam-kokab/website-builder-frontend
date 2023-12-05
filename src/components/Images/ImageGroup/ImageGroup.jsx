@@ -5,7 +5,7 @@ import ImageSlidingAlbum from '@/components/Images/ImageGroup/ImageSlidingAlbum'
 import styles from '../images.module.scss';
 
 const AlbumVariants = ['standard', 'album', 'slidingAlbum'];
-
+console.log('AlbumVariants', AlbumVariants);
 const AlbumVariant = ({ images = [], partSize = '12fr', circle = false, viewVariant = '' }) => {
   switch (viewVariant) {
     case 'standard':
