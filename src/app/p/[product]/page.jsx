@@ -13,6 +13,10 @@ export const generateMetadata = getGenerateMetadataFunc('product');
 
 const Product = async ({ params }) => {
   const { lang, product } = params;
+
+  // this is a hack to fix a bug in next.js
+  if (product === 'null-element') return null;
+
   const currentLang = lang || await getDefaultLangCode();
   const { currency: currencySettings } = await getSiteSettings(lang);
   if (!product || !currentLang) return null;

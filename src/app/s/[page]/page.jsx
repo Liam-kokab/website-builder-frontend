@@ -11,6 +11,10 @@ export const generateMetadata = getGenerateMetadataFunc('page');
 
 const Page = async ({ params = {} }) => {
   const { lang, page } = params;
+
+  // this is a hack to fix a bug in next.js
+  if (page === 'null-element') return null;
+
   const currentLang = lang || await getDefaultLangCode();
   if (!page || !currentLang) return null;
 

@@ -1,5 +1,21 @@
 import { getPagesParams, getPageMetadata } from './sanity';
 
+const getDummyPage = (pageType = 'page', useDefaultLang) => {
+  const object = useDefaultLang ? {} : { lang: 'null-lang' };
+  switch (pageType) {
+    case 'page':
+      return { page: 'null-element', ...object };
+    case 'post':
+      return { post: 'null-element', ...object };
+    case 'product':
+      return { product: 'null-element', ...object };
+    case 'checkout':
+      return object;
+    default:
+      return {};
+  }
+};
+
 /**
  * @param pageType {'page' | 'post' | 'product' | 'checkout'}
  * @param useDefaultLang {boolean}
@@ -11,7 +27,7 @@ export const getGenerateStaticParamsFunc = (pageType = 'page', useDefaultLang = 
   // Add checkout page
   if (pageType === 'checkout') items.push({ slug: 'checkout', status: 'available' });
 
-  return availableLangCodes
+  const res = availableLangCodes
     .filter((lang) => (useDefaultLang ? lang === defaultLang : lang !== defaultLang))
     .flatMap((lang) => items.filter(({ status }) => status === 'available').map(({ slug }) => ({
       ...(pageType === 'page' ? { page: (!useDefaultLang && slug === 'index') ? 'h' : slug } : {}),
@@ -20,6 +36,9 @@ export const getGenerateStaticParamsFunc = (pageType = 'page', useDefaultLang = 
       ...(pageType === 'checkout' ? {} : {}),
       ...(useDefaultLang ? {} : { lang }),
     })));
+
+  // If no available pages, return a dummy page, this is a bug in next.js
+  return res.length ? res : [getDummyPage(pageType, useDefaultLang)];
 };
 
 /**
@@ -29,6 +48,10 @@ export const getGenerateStaticParamsFunc = (pageType = 'page', useDefaultLang = 
  */
 export const getGenerateMetadataFunc = (pageType = 'page', isIndex = false) => async ({ params }) => {
   const { lang, page, post, product } = params;
+
+  // this is a hack to fix a bug in next.js
+  if (page === 'null-element' || post === 'null-element' || product === 'null-element') return {};
+
   const slug = (isIndex || page === 'h') ? 'index' : page || post || product || '';
 
   const { item, pageNamePrefix, defaultLang } = await getPageMetadata(pageType, slug);
